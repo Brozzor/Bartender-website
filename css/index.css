@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.form-party{
+    @apply flex flex-col rounded justify-center border shadow-md bg-gray-100 p-5;
+}
+
+.form-input{
+    @apply border border-blue-200 rounded p-2;
+}
+
+.form-label{
+    @apply font-bold text-gray-400 mb-1;
+}
+.form-button{
+    @apply border border-blue-100 rounded p-2;
+}
+
+@variants hover{
+    .form-button{
+        @apply bg-blue-400 border-white text-white;
+    }
+}

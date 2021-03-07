@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="build/style.css">
+    <title>The party</title>
+</head>
+
+
+<body>
+    <!--Hero-->
+    <div class="container mx-auto flex flex-col md:flex-row items-center my-12 md:my-24">
+        <!--Left Col-->
+        <div class="flex flex-col w-full lg:w-1/2 justify-center items-start pt-12 pb-24 px-6">
+            <p class="uppercase tracking-loose text-gray-300">Petites soirée entre amis</p>
+            <h1 class="font-bold text-blue-400 text-3xl my-4">The bartender</h1>
+            <p class="leading-normal mb-4">Rentrez le code de la soirée et commandez-vous à boire</p>
+            <a href="#party"
+                class="bg-transparent hover:bg-blue-600 text-gray-900 hover:text-white rounded shadow hover:shadow-lg py-2 px-4 border border-gray-900 hover:border-transparent">Demander
+                son cocktail</a>
+        </div>
+        <!--Right Col-->
+        <div class="w-full lg:w-1/2 lg:py-6 text-center">
+            <!--Add your product image here-->
+            <img src="asset/undraw_having_fun_iais.svg" alt="">
+        </div>
+    </div>
+
+    <!--Form-->
+    <div class="container mx-auto flex flex-col md:flex-row items-center my-12 md:my-24"">
+        <div class=" mx-auto w-1/2">
+        <form action="" class=" form-party" id="party">
+
+            <label for="Prénom" class="form-label">Prénom</label>
+            <input type="text" class="form-input" placeholder="Votre prénom" maxlength="20" />
+
+
+            <label for="Code" class="form-label mt-3">Code de la soirée</label>
+            <input type="number" class="form-input" placeholder="15266" max="9999" min="1">
+
+
+
+
+            <button class="text-center">Rejoint la soirée</button>
+        </form>
+    </div>
+
+    </div>
+</body>
+
+</html>
