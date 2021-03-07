@@ -17,5 +17,12 @@
 body {
   background: #0c1624 !important;
 }
+/* fige le scroll sur téléphone */
+body {
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  position: fixed;
+}
 
 </style>

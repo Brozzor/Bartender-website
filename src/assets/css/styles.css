@@ -3516,13 +3516,19 @@ a.text-dark {
 .table-bordered th {
   border-color: #e1e1e1;
 }
-textarea,
+
 .form-control {
   background-clip: padding-box;
   background-image: linear-gradient(transparent, transparent);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+.form-control-dark {
+    color: #ffffff!important;
+    background: #1b283b!important;
+    border-color: #1b283b!important;
 }
 .form-group {
   width: 100%;

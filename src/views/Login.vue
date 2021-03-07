@@ -18,7 +18,7 @@
             <div class="input-wrapper">
               <input
                 type="text"
-                class="form-control mt-3"
+                class="form-control form-control-dark mt-3"
                 placeholder="Votre prénom"
                 maxlength="20"
               />
@@ -31,7 +31,7 @@
             <div class="input-wrapper">
               <input
                 type="number"
-                class="form-control mt-2"
+                class="form-control form-control-dark mt-2"
                 placeholder="Code de la soirée"
                 max="9999"
                 min="1"
@@ -56,5 +56,11 @@
 
 export default {
   name: "Login",
+  data(){
+      return {
+          name: "",
+          code: ""
+      }
+  }
 };
 </script>
