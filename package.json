@@ -1,0 +1,22 @@
+{
+    "name": "the_party",
+    "version": "1.0.0",
+    "description": "",
+    "main": "",
+    "scripts": {
+        "build": "postcss css/tailwind.css -o public/build/style.css",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/bertyn99/Project-pied-a-terre.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {},
+    "devDependencies": {
+        "autoprefixer": "^10.2.5",
+        "postcss": "^8.2.7",
+        "tailwindcss": "^2.0.3"
+    }
+}
