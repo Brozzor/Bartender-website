@@ -15,9 +15,13 @@
           style="border-radius: 0.5rem"
         />
         <h2>{{ item.name }}</h2>
-        <p style="background: #0c1624 !important; color: #8195a6">
-          Ingredients :
+        <p style="background: #0c1624 !important; color: #8195a6; font-size: 1.15rem;font-weight: 500;">
+          Ingrédients :
         </p>
+        <div class="mt-3">
+          <p style="margin-bottom: 0.1rem;color: #374a65" v-for="ingredient in item.ingredients" :key="ingredient">{{ ingredient }}</p>
+        </div>
+        
       </div>
     </carousel>
 
