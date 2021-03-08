@@ -1916,9 +1916,9 @@ a.badge-dark {
   font-size: 18px;
 }
 .btn-primary {
-  background: #1e74fd !important;
-  border-color: #1e74fd !important;
-  color: #ffffff !important;
+  background: #1e74fd!important;
+  border-color: #1e74fd!important;
+  color: #ffffff!important;
 }
 .btn-primary:hover,
 .btn-primary:focus,
