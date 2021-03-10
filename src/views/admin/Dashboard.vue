@@ -1,15 +1,14 @@
 <template>
   <div id="appCapsule" class="pt-0">
-    sukhush
-    <b-carousel
+    <carousel
+      :loop="true"
       :responsive="{
         0: { items: 1, nav: false },
-        600: { items: 2, nav: true },
+        600: { items: 3, nav: true },
       }"
-      :loop="true"
       class="carousel-slider owl-theme"
     >
-      <b-carousel-slide class="item p-2">
+      <div class="item p-2">
         <b-form @submit="onSubmitCocktail">
           <b-form-group
             id="input-group-1"
@@ -44,8 +43,6 @@
               id="input-3"
               v-model="form[0].ingredients"
               :options="ingredients"
-              multiple
-              :select-size="3"
               required
             ></b-form-select>
           </b-form-group>
@@ -53,9 +50,9 @@
           <b-button type="submit" variant="primary">Submit</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
-      </b-carousel-slide>
+      </div>
 
-      <b-carousel-slide>
+      <div class="item p-2">
         <b-form @submit="onSubmitIngredient">
           <b-form-group
             id="input-group-1"
@@ -84,16 +81,17 @@
           <b-button type="submit" variant="primary">Submit</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
-      </b-carousel-slide>
-    </b-carousel>
+      </div>
+    </carousel>
   </div>
 </template>
 
 
 <script>
+import carousel from "vue-owl-carousel";
 export default {
   name: "Dashboard",
-  components: {},
+  components: { carousel },
   data() {
     return {
       form: [
