@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-import LoginAdmin from '../views/admin/Login.vue'
+import LoginAdmin from '../views/admin/Auth.vue'
 import Dashboard from '../views/admin/Dashboard.vue'
+import ErrorView from '../views/Layout/error.vue'
 
 Vue.use(VueRouter)
 
@@ -24,10 +25,11 @@ const routes = [
     component: LoginAdmin
   },
   {
-    path: '/',
+    path: '/admin',
     name: 'Admin',
     component: Dashboard
-  }
+  },
+  { path: '/:pathMatch(.*)*', component: ErrorView }
 ]
 
 const router = new VueRouter({
