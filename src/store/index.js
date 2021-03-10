@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     cocktails: [],
-
+    ingredient: ["Tequila", "Jus d'orange", "Sirop de grenadine", "Vodka", "Kas citron", "Sirop de fraise"]
   },
   mutations: {
     addCocktail({ state }, cocktail) {
@@ -17,6 +17,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
+
   },
   modules: {
   }
