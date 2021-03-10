@@ -27,15 +27,14 @@
 
           <b-form-group
             id="input-group-2"
-            label="Your Name:"
+            label="Image du cocktail:"
             label-for="input-2"
           >
-            <b-form-input
+            <b-form-file
               id="input-2"
               v-model="form[0].image"
-              placeholder="Enter name"
               required
-            ></b-form-input>
+            ></b-form-file>
           </b-form-group>
 
           <b-form-group id="input-group-3" label="Food:" label-for="input-3">
@@ -43,6 +42,7 @@
               id="input-3"
               v-model="form[0].ingredients"
               :options="ingredients"
+              multiple
               required
             ></b-form-select>
           </b-form-group>
@@ -114,6 +114,9 @@ export default {
     onSubmitIngredient(event) {
       event.preventDefault();
       alert(JSON.stringify(this.form[1]));
+    },
+    clearFiles() {
+      this.$refs["file-input"].reset();
     },
   },
   computed: {
