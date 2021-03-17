@@ -63,9 +63,10 @@ export default new Vuex.Store({
       }
     },
     async editConfiguration ({ commit }, form) {
+      console.log('toto')
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us' + '/cocktail', form
+          'https://api.party.buisson.us' + '/configuration/update', form
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)

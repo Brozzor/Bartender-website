@@ -7,11 +7,15 @@
           Définissez chaque pompes sur chaques consommable
         </h4>
       </div>
-      <div class="section mt-1 mb-5 pt-3 pb-3" style="background: #0F1C2F;
-    border-top-color: #1B283B;
-    border-bottom-color: #1B283B;">
-        <form>
-
+      <div
+        class="section mt-1 mb-5 pt-3 pb-3"
+        style="
+          background: #0f1c2f;
+          border-top-color: #1b283b;
+          border-bottom-color: #1b283b;
+        "
+      >
+        <form @submit.prevent="sendNewConf">
           <b-form-group
             id="fieldset-1"
             label="Pompe 1 :"
@@ -19,100 +23,99 @@
             class="form-conf"
           >
             <b-form-select
-                id="pump1"
-                v-model="form.pump1"
-                :options="consommable"
-                :class="{ dosage: true }"
-                value-field="item"
-                text-field="name"
-                disabled-field="notEnabled"
-              ></b-form-select>
+              id="pump1"
+              v-model="form.pump1"
+              :options="consommable"
+              :class="{ dosage: true }"
+              value-field="item"
+              text-field="name"
+              disabled-field="notEnabled"
+            ></b-form-select>
           </b-form-group>
 
-
-           <b-form-group
+          <b-form-group
             id="fieldset-2"
             label="Pompe 2 :"
             label-for="pump2"
             class="form-conf"
           >
             <b-form-select
-                id="pump2"
-                v-model="form.pump2"
-                :options="consommable"
-                :class="{ dosage: true }"
-                value-field="item"
-                text-field="name"
-                disabled-field="notEnabled"
-              ></b-form-select>
+              id="pump2"
+              v-model="form.pump2"
+              :options="consommable"
+              :class="{ dosage: true }"
+              value-field="item"
+              text-field="name"
+              disabled-field="notEnabled"
+            ></b-form-select>
           </b-form-group>
 
-           <b-form-group
+          <b-form-group
             id="fieldset-3"
             label="Pompe 3 :"
             label-for="pump3"
             class="form-conf"
           >
             <b-form-select
-                id="pump3"
-                v-model="form.pump3"
-                :options="consommable"
-                :class="{ dosage: true }"
-                value-field="item"
-                text-field="name"
-                disabled-field="notEnabled"
-              ></b-form-select>
+              id="pump3"
+              v-model="form.pump3"
+              :options="consommable"
+              :class="{ dosage: true }"
+              value-field="item"
+              text-field="name"
+              disabled-field="notEnabled"
+            ></b-form-select>
           </b-form-group>
 
-           <b-form-group
+          <b-form-group
             id="fieldset-4"
             label="Pompe 4 :"
             label-for="pump4"
             class="form-conf"
           >
             <b-form-select
-                id="pump4"
-                v-model="form.pump4"
-                :options="consommable"
-                :class="{ dosage: true }"
-                value-field="item"
-                text-field="name"
-                disabled-field="notEnabled"
-              ></b-form-select>
+              id="pump4"
+              v-model="form.pump4"
+              :options="consommable"
+              :class="{ dosage: true }"
+              value-field="item"
+              text-field="name"
+              disabled-field="notEnabled"
+            ></b-form-select>
           </b-form-group>
 
-           <b-form-group
+          <b-form-group
             id="fieldset-5"
             label="Pompe 5 :"
             label-for="pump5"
             class="form-conf"
           >
             <b-form-select
-                id="pump5"
-                v-model="form.pump5"
-                :options="consommable"
-                :class="{ dosage: true }"
-                value-field="item"
-                text-field="name"
-                disabled-field="notEnabled"
-              ></b-form-select>
+              id="pump5"
+              v-model="form.pump5"
+              :options="consommable"
+              :class="{ dosage: true }"
+              value-field="item"
+              text-field="name"
+              disabled-field="notEnabled"
+            ></b-form-select>
           </b-form-group>
 
-           <b-form-group
+          <b-form-group
             id="fieldset-6"
             label="Pompe 6 :"
             label-for="pump6"
             class="form-conf"
           >
             <b-form-select
-                id="pump6"
-                v-model="form.pump6"
-                :options="consommable"
-                :class="{ dosage: true }"
-                value-field="item"
-                text-field="name"
-                disabled-field="notEnabled"
-              ></b-form-select>
+              id="pump6"
+              v-model="form.pump6"
+              :options="consommable"
+              :class="{ dosage: true }"
+              value-field="item"
+              text-field="name"
+              disabled-field="notEnabled"
+            ></b-form-select>
           </b-form-group>
 
           <b-form-group
@@ -121,22 +124,22 @@
             label-for="code"
             class="form-conf"
           >
-          <input
-                id="code"
-                type="number"
-                class="form-control form-control-dark mt-2"
-                placeholder="Code de la soirée"
-                max="9999"
-                min="1"
-                v-model="form.party_code"
-              />
+            <input
+              id="code"
+              type="number"
+              class="form-control form-control-dark mt-2"
+              placeholder="Code de la soirée"
+              max="9999"
+              min="1"
+              v-model="form.party_code"
+            />
           </b-form-group>
 
           <div class="mt-4">
-                        <button type="submit" class="btn btn-success btn-lg btn-block">
-                            Sauvegarder
-                        </button>
-                    </div>
+            <button type="submit" class="btn btn-success btn-lg btn-block">
+              Sauvegarder
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -149,20 +152,20 @@ import BottomMenu from "../../components/BottomMenu.vue";
 export default {
   name: "Configuration",
   components: {
-      BottomMenu
+    BottomMenu,
   },
   data() {
     return {
-        form: {
-            pump1: "",
-            pump2: "",
-            pump3: "",
-            pump4: "",
-            pump5: "",
-            pump6: "",
-            party_code: "",  
-        },
-      
+      form: {
+        pump1: "",
+        pump2: "",
+        pump3: "",
+        pump4: "",
+        pump5: "",
+        pump6: "",
+        party_code: "",
+      },
+
       consommable: [{ item: "", name: "Aucun" }],
       configuration: [],
     };
@@ -192,9 +195,11 @@ export default {
         }
       }
     },
-    sendNewConf(){
-        this.$emit('editConfiguration', this.form)
-    }
+    async sendNewConf() {
+        console.log("dzqdzq")
+      await this.$store.dispatch("editConfiguration", this.form);
+
+    },
   },
   async created() {
     this.getConfiguration();
@@ -217,9 +222,9 @@ export default {
 }
 
 .form-conf {
-    text-align: left; 
-    color: white; 
-    margin-bottom: 0.5rem!important;
+  text-align: left;
+  color: white;
+  margin-bottom: 0.5rem !important;
 }
 
 body {
