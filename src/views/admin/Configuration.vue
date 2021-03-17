@@ -1,168 +1,231 @@
 <template>
   <div id="appCapsule" class="pt-0">
     <div class="login-form mt-1">
-      <div class="section mt-5 text-white" >
-        <h1 style="font-size: 34px;font-weight: 700;">Configuration</h1>
-        <h4 style="font-size: 15px;font-weight: 500;">Définissez chaque pompes sur chaques consommable</h4>
+      <div class="section mt-5 text-white">
+        <h1 style="font-size: 34px; font-weight: 700">Configuration</h1>
+        <h4 style="font-size: 15px; font-weight: 500">
+          Définissez chaque pompes sur chaques consommable
+        </h4>
       </div>
-      <div class="section mt-1 mb-5">
+      <div class="section mt-1 mb-5 pt-3 pb-3" style="background: #0F1C2F;
+    border-top-color: #1B283B;
+    border-bottom-color: #1B283B;">
         <form>
 
-          <div class="form-group boxed">
-            <div class="input-wrapper">
-             <b-form-select
-            v-model="pump1"
-            :options="consommable"
-            :class="{'dosage': true}"
-            value-field="item"
-            text-field="name"
-            disabled-field="notEnabled"
-          ></b-form-select>
-            </div>
-          </div>
+          <b-form-group
+            id="fieldset-1"
+            label="Pompe 1 :"
+            label-for="pump1"
+            class="form-conf"
+          >
+            <b-form-select
+                id="pump1"
+                v-model="form.pump1"
+                :options="consommable"
+                :class="{ dosage: true }"
+                value-field="item"
+                text-field="name"
+                disabled-field="notEnabled"
+              ></b-form-select>
+          </b-form-group>
 
-          <div class="form-group boxed">
-            <div class="input-wrapper">
-             <b-form-select
-            v-model="pump2"
-            :options="consommable"
-            :class="{'dosage': true}"
-            value-field="item"
-            text-field="name"
-            disabled-field="notEnabled"
-          ></b-form-select>
-            </div>
-          </div>
 
-          <div class="form-group boxed">
-            <div class="input-wrapper">
-             <b-form-select
-            v-model="pump3"
-            :options="consommable"
-            :class="{'dosage': true}"
-            value-field="item"
-            text-field="name"
-            disabled-field="notEnabled"
-          ></b-form-select>
-            </div>
-          </div>
+           <b-form-group
+            id="fieldset-2"
+            label="Pompe 2 :"
+            label-for="pump2"
+            class="form-conf"
+          >
+            <b-form-select
+                id="pump2"
+                v-model="form.pump2"
+                :options="consommable"
+                :class="{ dosage: true }"
+                value-field="item"
+                text-field="name"
+                disabled-field="notEnabled"
+              ></b-form-select>
+          </b-form-group>
 
-          <div class="form-group boxed">
-            <div class="input-wrapper">
-             <b-form-select
-            v-model="pump4"
-            :options="consommable"
-            :class="{'dosage': true}"
-            value-field="item"
-            text-field="name"
-            disabled-field="notEnabled"
-          ></b-form-select>
-            </div>
-          </div>
+           <b-form-group
+            id="fieldset-3"
+            label="Pompe 3 :"
+            label-for="pump3"
+            class="form-conf"
+          >
+            <b-form-select
+                id="pump3"
+                v-model="form.pump3"
+                :options="consommable"
+                :class="{ dosage: true }"
+                value-field="item"
+                text-field="name"
+                disabled-field="notEnabled"
+              ></b-form-select>
+          </b-form-group>
 
-          <div class="form-group boxed">
-            <div class="input-wrapper">
-             <b-form-select
-            v-model="pump5"
-            :options="consommable"
-            :class="{'dosage': true}"
-            value-field="item"
-            text-field="name"
-            disabled-field="notEnabled"
-          ></b-form-select>
-            </div>
-          </div>
+           <b-form-group
+            id="fieldset-4"
+            label="Pompe 4 :"
+            label-for="pump4"
+            class="form-conf"
+          >
+            <b-form-select
+                id="pump4"
+                v-model="form.pump4"
+                :options="consommable"
+                :class="{ dosage: true }"
+                value-field="item"
+                text-field="name"
+                disabled-field="notEnabled"
+              ></b-form-select>
+          </b-form-group>
 
-          <div class="form-group boxed">
-            <div class="input-wrapper">
-             <b-form-select
-            v-model="pump6"
-            :options="consommable"
-            :class="{'dosage': true}"
-            value-field="item"
-            text-field="name"
-            disabled-field="notEnabled"
-          ></b-form-select>
-            </div>
-          </div>
+           <b-form-group
+            id="fieldset-5"
+            label="Pompe 5 :"
+            label-for="pump5"
+            class="form-conf"
+          >
+            <b-form-select
+                id="pump5"
+                v-model="form.pump5"
+                :options="consommable"
+                :class="{ dosage: true }"
+                value-field="item"
+                text-field="name"
+                disabled-field="notEnabled"
+              ></b-form-select>
+          </b-form-group>
 
-          <div class="form-group boxed">
-            <div class="input-wrapper">
-              <input
+           <b-form-group
+            id="fieldset-6"
+            label="Pompe 6 :"
+            label-for="pump6"
+            class="form-conf"
+          >
+            <b-form-select
+                id="pump6"
+                v-model="form.pump6"
+                :options="consommable"
+                :class="{ dosage: true }"
+                value-field="item"
+                text-field="name"
+                disabled-field="notEnabled"
+              ></b-form-select>
+          </b-form-group>
+
+          <b-form-group
+            id="fieldset-7"
+            label="Code secret :"
+            label-for="code"
+            class="form-conf"
+          >
+          <input
+                id="code"
                 type="number"
                 class="form-control form-control-dark mt-2"
                 placeholder="Code de la soirée"
                 max="9999"
                 min="1"
-                v-model="code"
+                v-model="form.party_code"
               />
-              <i class="clear-input">
-              </i>
-            </div>
-          </div>
+          </b-form-group>
 
-          <div class="form-button-group" style="background: #0f1c2d;">
-            <button type="submit" class="btn btn-success btn-block btn-lg">
-              Sauvegarder
-            </button>
-          </div>
+          <div class="mt-4">
+                        <button type="submit" class="btn btn-success btn-lg btn-block">
+                            Sauvegarder
+                        </button>
+                    </div>
         </form>
       </div>
     </div>
+    <BottomMenu></BottomMenu>
   </div>
 </template>
 
 <script>
-
+import BottomMenu from "../../components/BottomMenu.vue";
 export default {
   name: "Configuration",
-  data(){
-      return {
-        pump1: "",
-        pump2: "",
-        pump3: "",
-        pump4: "",
-        pump5: "",
-        pump6: "",
-        code: "",
-        consommable: [
-            { item: "", name: "Aucun" },
-        ],
-        configuration: []
-      }
+  components: {
+      BottomMenu
+  },
+  data() {
+    return {
+        form: {
+            pump1: "",
+            pump2: "",
+            pump3: "",
+            pump4: "",
+            pump5: "",
+            pump6: "",
+            party_code: "",  
+        },
+      
+      consommable: [{ item: "", name: "Aucun" }],
+      configuration: [],
+    };
   },
   methods: {
-    async getConsommable () {
-      const ret = await this.$store.dispatch('getConsommable')
+    async getConsommable() {
+      const ret = await this.$store.dispatch("getConsommable");
       for (const elem of ret.data) {
-          this.consommable.push({item: elem.id, name: elem.name});
+        this.consommable.push({ item: elem.id, name: elem.name });
       }
-
     },
-     async getConfiguration () {
-      const ret = await this.$store.dispatch('getConfiguration')
-      this.configuration = ret.data
-      this.pump1 = this.getConf('pump1');
-      this.pump2 = this.getConf('pump2');
-      this.pump3 = this.getConf('pump3');
-      this.pump4 = this.getConf('pump4');
-      this.pump5 = this.getConf('pump5');
-      this.pump6 = this.getConf('pump6');
-      this.code = this.getConf('party_code');
+    async getConfiguration() {
+      const ret = await this.$store.dispatch("getConfiguration");
+      this.configuration = ret.data;
+      this.form.pump1 = this.getConf("pump1");
+      this.form.pump2 = this.getConf("pump2");
+      this.form.pump3 = this.getConf("pump3");
+      this.form.pump4 = this.getConf("pump4");
+      this.form.pump5 = this.getConf("pump5");
+      this.form.pump6 = this.getConf("pump6");
+      this.form.party_code = this.getConf("party_code");
     },
     getConf(pump) {
-        for (const elem of this.configuration) {
-            if (elem.name == pump){
-                return elem.value
-            }
+      for (const elem of this.configuration) {
+        if (elem.name == pump) {
+          return elem.value;
         }
-       
+      }
+    },
+    sendNewConf(){
+        this.$emit('editConfiguration', this.form)
     }
   },
-  async created () {
-    this.getConfiguration()
-    this.getConsommable()
-    
-  }
+  async created() {
+    this.getConfiguration();
+    this.getConsommable();
+  },
 };
 </script>
+
+<style>
+.iconbottom {
+  display: inline-flex;
+  margin: 1px auto 3px auto;
+  font-size: 26px;
+  line-height: 1em;
+  color: #fff;
+  transition: 0.1s all;
+  display: block;
+  margin-top: 1px;
+  margin-bottom: 3px;
+}
+
+.form-conf {
+    text-align: left; 
+    color: white; 
+    margin-bottom: 0.5rem!important;
+}
+
+body {
+  height: 100%;
+  overflow: visible;
+  width: 100%;
+  position: sticky;
+}
+</style>

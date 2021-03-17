@@ -109,4 +109,12 @@ export default {
   line-height: 1.5!important;
   border-radius: 0.3rem!important;
 }
+
+/* fige le scroll sur téléphone */
+body {
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  position: fixed;
+}
 </style>
