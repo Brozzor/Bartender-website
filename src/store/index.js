@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import Api from 'axios'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -17,7 +17,51 @@ export default new Vuex.Store({
     }
   },
   actions: {
-
+    async getConsommable ({ commit }) {
+      try {
+        const response = await Api.get(
+          'https://api.party.buisson.us' + '/consommable'
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
+    async getConfiguration ({ commit }) {
+      try {
+        const response = await Api.get(
+          'https://api.party.buisson.us' + '/configuration'
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
+    async getCocktail ({ commit }) {
+      try {
+        const response = await Api.get(
+          'https://api.party.buisson.us' + '/cocktail'
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
   },
   modules: {
   }

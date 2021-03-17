@@ -3,6 +3,8 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import axios from 'axios'
+
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
@@ -14,6 +16,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+
+Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
 

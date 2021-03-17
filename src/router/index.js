@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import LoginAdmin from '../views/admin/Auth.vue'
 import Dashboard from '../views/admin/Dashboard.vue'
+import Configuration from '../views/admin/Configuration.vue'
 import ErrorView from '../views/Layout/error.vue'
 
 Vue.use(VueRouter)
@@ -23,6 +24,11 @@ const routes = [
     path: '/admin/auth',
     name: 'Admin',
     component: LoginAdmin
+  },
+  {
+    path: '/admin/configuration',
+    name: 'Configuration',
+    component: Configuration
   },
   {
     path: '/admin',
