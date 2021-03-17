@@ -15,7 +15,7 @@
           border-bottom-color: #1b283b;
         "
       >
-        <form @submit.prevent="sendNewConf">
+
           <b-form-group
             id="fieldset-1"
             label="Pompe 1 :"
@@ -136,11 +136,11 @@
           </b-form-group>
 
           <div class="mt-4">
-            <button type="submit" class="btn btn-success btn-lg btn-block">
+            <button type="button" @click="sendNewConf" class="btn btn-success btn-lg btn-block" :disabled="!buttonIsClickable">
               Sauvegarder
             </button>
           </div>
-        </form>
+        
       </div>
     </div>
     <BottomMenu></BottomMenu>
@@ -165,9 +165,9 @@ export default {
         pump6: "",
         party_code: "",
       },
-
       consommable: [{ item: "", name: "Aucun" }],
       configuration: [],
+      buttonIsClickable: true
     };
   },
   methods: {
@@ -196,9 +196,9 @@ export default {
       }
     },
     async sendNewConf() {
-        console.log("dzqdzq")
-      await this.$store.dispatch("editConfiguration", this.form);
-
+      this.buttonIsClickable = false
+      const res = await this.$store.dispatch("editConfiguration", this.form);
+      this.buttonIsClickable = true
     },
   },
   async created() {
