@@ -80,11 +80,7 @@ export default new Vuex.Store({
     async addCocktail ({ commit }, form) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us' + '/cocktail', form,  {
-            headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        }
+          'https://api.party.buisson.us' + '/cocktail', form
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
