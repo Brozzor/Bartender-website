@@ -96,6 +96,15 @@ export default {
       selected: "1",
     };
   },
+  methods: {
+    async getCocktail() {
+      const ret = await this.$store.dispatch("getCocktail");
+      this.cocktails = ret.data
+    },
+  },
+  created(){
+   // this.getCocktail()
+  }
 };
 </script>
 
