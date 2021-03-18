@@ -99,6 +99,7 @@ export default {
           for (const elem3 of consommable.data) {
             if (elem2.id == elem3.id) {
               elem.ingredients.push(elem3.name);
+              break ;
             }
           }
         }
