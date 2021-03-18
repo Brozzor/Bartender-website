@@ -4,10 +4,10 @@
       v-if="loaded"
       :responsive="{
         0: { items: 1, nav: false },
-        600: { items: 3, nav: true },
       }"
       :loop="true"
       class="carousel-slider owl-theme"
+      @translated="translated"
     >
       <div class="item p-2" v-for="item in cocktails" :key="item.name">
         <img
@@ -39,10 +39,11 @@
     </carousel>
 
     <div class="carousel-button-footer">
-      <div class="row">
+
+      <div v-if="form.isInStock" class="row">
         <div class="col-4 pr-0 pl-3">
           <b-form-select
-            v-model="selected"
+            v-model="form.amount"
             :options="options"
             :class="{
               'btn-lg': true,
@@ -56,12 +57,42 @@
           ></b-form-select>
         </div>
         <div class="col-8 px-3">
-          <a href="app-components.html" class="btn btn-primary btn-lg btn-block"
-            >Servir</a
+          <button
+            @click="toServeCocktail"
+            class="btn btn-primary btn-lg btn-block"
           >
+            Servir
+          </button>
         </div>
       </div>
+
+        <div v-else class="px-3">
+          <button
+            @click="toServeCocktail"
+            class="btn btn-danger btn-lg btn-block"
+            style="opacity: .5;"
+            disabled
+          >
+            Hors stock
+          </button>
+        </div>
+
+
     </div>
+    <b-modal
+      hide-footer
+      headerTextVariant="black"
+      centered
+      title="Votre verre est en train d'etre servis"
+      v-model="modalShow"
+    >
+      <b-progress
+        :value="form.cocktailTimeCurrent"
+        variant="success"
+        striped
+        :animated="true"
+      ></b-progress>
+    </b-modal>
   </div>
 </template>
 
@@ -72,8 +103,7 @@ export default {
   components: { carousel },
   data() {
     return {
-      cocktails: [
-      ],
+      cocktails: [],
       options: [
         { item: "1", name: "Normal" },
         { item: "2", name: "Chargé" },
@@ -81,6 +111,15 @@ export default {
       ],
       selected: "1",
       loaded: false,
+      form: {
+        id: "",
+        amount: "1",
+        name: "",
+        cocktailTime: 10500,
+        cocktailTimeCurrent: 0,
+        isInStock: true
+      },
+      modalShow: false,
     };
   },
   methods: {
@@ -88,26 +127,54 @@ export default {
       const res = await this.$store.dispatch("getCocktail");
       this.cocktails = res.data;
       await this.getConsommable();
+      this.form.id = this.cocktails[0].id;
+      this.form.isInStock = this.cocktails[0].isInStock;
       this.loaded = true;
     },
     async getConsommable() {
       const consommable = await this.$store.dispatch("getConsommable");
-     for (let elem of this.cocktails) {
+      for (let elem of this.cocktails) {
         elem.ingredients = [];
         for (const elem2 of elem.consommable) {
           for (const elem3 of consommable.data) {
             if (elem2.id == elem3.id) {
               elem.ingredients.push(elem3.name);
-              break ;
+              break;
             }
           }
         }
       }
     },
+    async toServeCocktail() {
+      this.modalShow = true;
+      const res = await this.$store.dispatch("toServeCocktail", this.form);
+      this.progress();
+
+      console.log(res.data);
+    },
+    translated(data) {
+      this.form.id = this.cocktails[data.page.index].id;
+      this.form.isInStock = this.cocktails[data.page.index].isInStock;
+    },
+    async progress() {
+      await this.sleep(this.form.cocktailTime / 100);
+      this.form.cocktailTimeCurrent += 1;
+      if (this.form.cocktailTimeCurrent <= this.form.cocktailTime / 100) {
+        return this.progress();
+      } else {
+        this.form.cocktailTimeCurrent = 0;
+        this.modalShow = false;
+      }
+
+    },
+    sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    },
   },
-  created(){
-    this.getCocktail()
-  }
+  created() {
+    this.getCocktail();
+    this.form.name = localStorage.name;
+  },
 };
 </script>
 
@@ -121,7 +188,7 @@ export default {
   line-height: 1.5 !important;
   border-radius: 0.3rem !important;
 }
-
-/* fige le scroll sur téléphone */
-
+.modal-title {
+  color: black;
+}
 </style>
