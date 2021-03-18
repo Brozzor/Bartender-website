@@ -107,6 +107,36 @@ export default new Vuex.Store({
         return { error: error.message }
       }
     },
+    async checkIsAuth ({ commit }, form) {
+      try {
+        const response = await Api.post(
+          'https://api.party.buisson.us' + '/checkIsAuth', form
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
+    async login ({ commit }, form) {
+      try {
+        const response = await Api.post(
+          'https://api.party.buisson.us' + '/login', form
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
 
   },
   modules: {
