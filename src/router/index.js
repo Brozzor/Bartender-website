@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-import Dashboard from '../views/admin/Dashboard.vue'
 import Configuration from '../views/admin/Configuration.vue'
 import Cocktail from '../views/admin/Cocktail.vue'
 import Consommable from '../views/admin/Consommable.vue'
@@ -41,11 +40,6 @@ const routes = [
     path: '/admin/log',
     name: 'Log',
     component: Log
-  },
-  {
-    path: '/admin',
-    name: 'Admin',
-    component: Dashboard
   },
   { path: '/:pathMatch(.*)*', component: ErrorView }
 ]

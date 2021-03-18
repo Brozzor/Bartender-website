@@ -181,10 +181,4 @@ export default {
   border: none;
 }
 
-body {
-  height: 100%;
-  overflow: visible;
-  width: 100%;
-  position: sticky;
-}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="appCapsule">
+  <div class="mt-2">
     <carousel
       v-if="loaded"
       :responsive="{
@@ -92,7 +92,6 @@ export default {
     },
     async getConsommable() {
       const consommable = await this.$store.dispatch("getConsommable");
-      console.log(consommable)
      for (let elem of this.cocktails) {
         elem.ingredients = [];
         for (const elem2 of elem.consommable) {
@@ -124,10 +123,5 @@ export default {
 }
 
 /* fige le scroll sur téléphone */
-body {
-  height: 100%;
-  overflow: hidden;
-  width: 100%;
-  position: fixed;
-}
+
 </style>

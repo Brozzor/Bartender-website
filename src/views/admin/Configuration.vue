@@ -227,10 +227,4 @@ export default {
   margin-bottom: 0.5rem !important;
 }
 
-body {
-  height: 100%;
-  overflow: visible;
-  width: 100%;
-  position: sticky;
-}
 </style>
