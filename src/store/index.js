@@ -63,10 +63,28 @@ export default new Vuex.Store({
       }
     },
     async editConfiguration ({ commit }, form) {
-      console.log('toto')
       try {
         const response = await Api.post(
           'https://api.party.buisson.us' + '/configuration/update', form
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
+    async addCocktail ({ commit }, form) {
+      try {
+        const response = await Api.post(
+          'https://api.party.buisson.us' + '/cocktail', form,  {
+            headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
