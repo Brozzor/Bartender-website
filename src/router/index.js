@@ -7,6 +7,7 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Configuration from "../views/admin/Configuration.vue";
 import Cocktail from "../views/admin/Cocktail.vue";
+import Led from "../views/admin/Led.vue";
 import Consommable from "../views/admin/Consommable.vue";
 import Log from "../views/admin/Log.vue";
 import ErrorView from "../views/Layout/error.vue";
@@ -31,6 +32,11 @@ const routes = [
     path: "/admin/configuration",
     name: "Configuration",
     component: Configuration,
+  },
+  {
+    path: "/admin/led",
+    name: "Led",
+    component: Led,
   },
   {
     path: "/admin/cocktail",

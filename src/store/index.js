@@ -137,6 +137,51 @@ export default new Vuex.Store({
         return { error: error.message }
       }
     },
+    async changeState ({ commit }, value) {
+      try {
+        const response = await Api.post(
+          'https://api.party.buisson.us/led/' + value, {}
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
+    async ledBrightness ({ commit }, data) {
+      try {
+        const response = await Api.post(
+          'https://api.party.buisson.us/led/changeBrightness', data
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
+    async changeEffect ({ commit }, data) {
+      try {
+        const response = await Api.post(
+          'https://api.party.buisson.us/led/changeEffect', data
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
 
   },
   modules: {
