@@ -75,7 +75,7 @@ export default {
     async startEffect(value) {
       this.isClickable = false;
       this.btnOpacity = 0.5;
-      await this.$store.dispatch("changeEffect", { name: value.path[0].value });
+      await this.$store.dispatch("changeEffect", { name: value.toElement.value });
       this.isClickable = true;
       this.btnOpacity = 1;
     },
