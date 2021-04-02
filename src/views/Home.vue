@@ -93,6 +93,15 @@
         :animated="true"
       ></b-progress>
     </b-modal>
+
+    <b-modal
+      hide-footer
+      headerTextVariant="danger"
+      centered
+      title="Aucun verre détecter"
+      v-model="modalShowError"
+    >
+    </b-modal>
   </div>
 </template>
 
@@ -120,6 +129,7 @@ export default {
         isInStock: true
       },
       modalShow: false,
+      modalShowError: false,
     };
   },
   methods: {
@@ -146,11 +156,15 @@ export default {
       }
     },
     async toServeCocktail() {
-      this.modalShow = true;
+      
       const res = await this.$store.dispatch("toServeCocktail", this.form);
-      this.progress();
-
-      console.log(res.data);
+      console.log(res.error)
+      if (!res.error){
+        this.modalShow = true;
+        this.progress();
+      }else{
+        this.modalShowError = true;
+      }
     },
     translated(data) {
       this.form.id = this.cocktails[data.page.index].id;
