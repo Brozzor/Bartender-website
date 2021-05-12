@@ -3,7 +3,7 @@
     <div class="login-form mt-1">
       <div class="section">
         <img
-          src="img/cocktail.svg"
+          src="/img/cocktail.svg"
           alt="image"
           class="form-image"
         />
@@ -31,11 +31,9 @@
           <div class="form-group boxed">
             <div class="input-wrapper">
               <input
-                type="number"
+                type="password"
                 class="form-control form-control-dark mt-2"
-                placeholder="Code de la soirée"
-                max="9999"
-                min="1"
+                placeholder="Mot de passe"
                 v-model="form.password"
               />
               <i class="clear-input">

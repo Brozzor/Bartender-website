@@ -10,6 +10,7 @@ import Cocktail from "../views/admin/Cocktail.vue";
 import Led from "../views/admin/Led.vue";
 import Consommable from "../views/admin/Consommable.vue";
 import Log from "../views/admin/Log.vue";
+import AdminLogin from "../views/admin/Login.vue";
 import ErrorView from "../views/Layout/error.vue";
 
 Vue.use(VueRouter);
@@ -52,6 +53,11 @@ const routes = [
     path: "/admin/log",
     name: "Log",
     component: Log,
+  },
+  {
+    path: "/admin/login",
+    name: "AdminLogin",
+    component: AdminLogin,
   },
   { path: "/:pathMatch(.*)*", component: ErrorView },
 ];
