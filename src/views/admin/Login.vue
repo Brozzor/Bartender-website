@@ -64,7 +64,7 @@
 <script>
 
 export default {
-  name: "Login",
+  name: "AdminLogin",
   data(){
       return {
         form: {
@@ -78,14 +78,12 @@ export default {
   methods: {
     async login(){
       this.buttonIsClickable = false
-      let res = await this.$store.dispatch("login", this.form);
-      if (res.error){
+      let res = await this.$store.dispatch("loginAdmin", this.form);
+      if (res.error != undefined){
         this.modalShow = true
       }else{
-        localStorage.code = this.form.code
-        localStorage.name = this.form.name
-        localStorage.logDate = Math.round(+new Date() / 1000);
-        return this.$router.push({ name: 'Home' });
+        localStorage.tokenSession = res.data.tokenSession
+        return this.$router.push({ name: 'Configuration' });
       }
       this.buttonIsClickable = true
     }

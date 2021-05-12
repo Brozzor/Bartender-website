@@ -137,6 +137,21 @@ export default new Vuex.Store({
         return { error: error.message }
       }
     },
+    async loginAdmin ({ commit }, form) {
+      try {
+        const response = await Api.post(
+          'https://api.party.buisson.us' + '/admin/login', form
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
     async changeState ({ commit }, value) {
       try {
         const response = await Api.post(

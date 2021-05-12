@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import auth from "../middleware/auth";
+import authAdmin from "../middleware/authAdmin";
 
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
@@ -33,26 +34,41 @@ const routes = [
     path: "/admin/configuration",
     name: "Configuration",
     component: Configuration,
+    meta: {
+      middleware: authAdmin,
+    },
   },
   {
     path: "/admin/led",
     name: "Led",
     component: Led,
+    meta: {
+      middleware: authAdmin,
+    },
   },
   {
     path: "/admin/cocktail",
     name: "Cocktail",
     component: Cocktail,
+    meta: {
+      middleware: authAdmin,
+    },
   },
   {
     path: "/admin/consommable",
     name: "Consommable",
     component: Consommable,
+    meta: {
+      middleware: authAdmin,
+    },
   },
   {
     path: "/admin/log",
     name: "Log",
     component: Log,
+    meta: {
+      middleware: authAdmin,
+    },
   },
   {
     path: "/admin/login",
