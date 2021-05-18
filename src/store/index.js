@@ -65,7 +65,12 @@ export default new Vuex.Store({
     async editConfiguration ({ commit }, form) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us' + '/configuration/update', form
+          'https://api.party.buisson.us' + '/configuration/update', form,
+          {
+            headers: {
+              tokenSession: localStorage.tokenSession
+            }
+          }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -80,7 +85,12 @@ export default new Vuex.Store({
     async addCocktail ({ commit }, form) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us' + '/cocktail', form
+          'https://api.party.buisson.us' + '/cocktail', form,
+          {
+            headers: {
+              tokenSession: localStorage.tokenSession
+            }
+          }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -155,7 +165,12 @@ export default new Vuex.Store({
     async changeState ({ commit }, value) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us/led/' + value, {}
+          'https://api.party.buisson.us/led/' + value, {},
+          {
+            headers: {
+              tokenSession: localStorage.tokenSession
+            }
+          }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -170,7 +185,12 @@ export default new Vuex.Store({
     async ledBrightness ({ commit }, data) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us/led/changeBrightness', data
+          'https://api.party.buisson.us/led/changeBrightness', data,
+          {
+            headers: {
+              tokenSession: localStorage.tokenSession
+            }
+          }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -185,7 +205,12 @@ export default new Vuex.Store({
     async changeEffect ({ commit }, data) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us/led/changeEffect', data
+          'https://api.party.buisson.us/led/changeEffect', data,
+          {
+            headers: {
+              tokenSession: localStorage.tokenSession
+            }
+          }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
