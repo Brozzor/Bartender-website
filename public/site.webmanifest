@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Party - Romain house",
+    "short_name": "House party",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,7 +13,9 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
-    "display": "standalone"
+    "theme_color": "#fd2aa7",
+    "background_color": "#0c1624",
+    "display": "standalone",
+    "Scope": "/",
+    "orientation": "portrait"
 }
