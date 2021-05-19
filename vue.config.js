@@ -11,12 +11,7 @@ module.exports = {
       orientation: "portrait",
       start_url: "/",
       // configure the workbox plugin
-      workboxPluginMode: 'InjectManifest',
-      workboxOptions: {
-        // swSrc is required in InjectManifest mode.
-        swSrc: 'dev/sw.js',
-        // ...other Workbox options...
-      },
+      workboxPluginMode: 'GenerateSW',
       iconPaths: {
         favicon32: 'favicon-32x32.png',
         favicon16: 'favicon-16x16.png',
