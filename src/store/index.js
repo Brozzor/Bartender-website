@@ -62,6 +62,26 @@ export default new Vuex.Store({
         return { error: error.message }
       }
     },
+    async getLog ({ commit }) {
+      try {
+        const response = await Api.get(
+          'https://api.party.buisson.us' + '/log',
+          {
+            headers: {
+              tokenSession: localStorage.tokenSession
+            }
+          }
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
     async editConfiguration ({ commit }, form) {
       try {
         const response = await Api.post(
