@@ -97,6 +97,32 @@
           </button>
         </div>
       </div>
+
+      <b-list-group v-if="loaded">
+        <b-list-group-item
+          href="#"
+          class="mt-1"
+          v-for="cocktail in cocktails"
+          :key="cocktail.id"
+          style="background-color: #0f1c2f"
+        >
+        
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ cocktail.name }}</h5>
+          </div>
+
+        <div class="d-flex justify-content-between">
+          <ul class="text-left">
+            <li class="text-white" v-for="consommable in cocktail.ingredients" :key="consommable.id">{{consommable}}</li>
+          </ul>
+          <b-button variant="outline-danger">Supprimer</b-button>
+        </div>
+          
+
+        </b-list-group-item>
+
+      </b-list-group>
+
     </div>
     <BottomMenu></BottomMenu>
   </div>
@@ -115,17 +141,39 @@ export default {
         name: "",
         consommable: [
           {
-            "id": "",
-            "time": "",
+            id: "",
+            time: "",
           },
         ],
         img: "",
         isInStock: 1,
       },
       consommable: [{ item: "", name: "Aucun" }],
+      cocktails: [],
+      loaded: false
     };
   },
   methods: {
+    async getCocktail() {
+      const res = await this.$store.dispatch("getCocktail");
+      this.cocktails = res.data;
+      await this.addConsommableToCocktail()
+    },
+    async addConsommableToCocktail() {
+      const consommable = await this.$store.dispatch("getConsommable");
+      for (let elem of this.cocktails) {
+        elem.ingredients = [];
+        for (const elem2 of elem.consommable) {
+          for (const elem3 of consommable.data) {
+            if (elem2.id == elem3.id) {
+              elem.ingredients.push(elem3.name);
+              break;
+            }
+          }
+        }
+      }
+      this.loaded = true;
+    },
     async getConsommable() {
       const ret = await this.$store.dispatch("getConsommable");
       for (const elem of ret.data) {
@@ -135,8 +183,8 @@ export default {
     addConsommable() {
       if (this.formCreation.consommable.length < 6) {
         this.formCreation.consommable.push({
-          "id": "",
-          "time": "",
+          id: "",
+          time: "",
         });
       }
     },
@@ -150,7 +198,8 @@ export default {
     },
   },
   async created() {
-    this.getConsommable();
+    await this.getConsommable();
+    await this.getCocktail();
   },
 };
 </script>
@@ -180,5 +229,4 @@ export default {
   width: 100%;
   border: none;
 }
-
 </style>
