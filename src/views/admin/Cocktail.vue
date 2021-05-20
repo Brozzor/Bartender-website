@@ -98,7 +98,7 @@
         </div>
       </div>
 
-      <b-list-group v-if="loaded">
+      <b-list-group v-if="loaded" class="mb-5">
         <b-list-group-item
           href="#"
           class="mt-1"
@@ -106,7 +106,6 @@
           :key="cocktail.id"
           style="background-color: #0f1c2f"
         >
-        
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{{ cocktail.name }}</h5>
           </div>
@@ -115,10 +114,8 @@
           <ul class="text-left">
             <li class="text-white" v-for="consommable in cocktail.ingredients" :key="consommable.id">{{consommable}}</li>
           </ul>
-          <b-button variant="outline-danger">Supprimer</b-button>
+          <b-button @click="sendRemoveCocktail(cocktail.id)" variant="outline-danger">Supprimer</b-button>
         </div>
-          
-
         </b-list-group-item>
 
       </b-list-group>
@@ -155,6 +152,7 @@ export default {
   },
   methods: {
     async getCocktail() {
+      this.loaded = false;
       const res = await this.$store.dispatch("getCocktail");
       this.cocktails = res.data;
       await this.addConsommableToCocktail()
@@ -195,6 +193,11 @@ export default {
     },
     async sendNewCocktail() {
       await this.$store.dispatch("addCocktail", this.formCreation);
+      await this.getCocktail();
+    },
+    async sendRemoveCocktail(id) {
+      await this.$store.dispatch("removeCocktail", id);
+      await this.getCocktail();
     },
   },
   async created() {
