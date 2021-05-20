@@ -102,6 +102,46 @@ export default new Vuex.Store({
         return { error: error.message }
       }
     },
+    async addConsommable ({ commit }, form) {
+      try {
+        const response = await Api.post(
+          'https://api.party.buisson.us' + '/consommable', form,
+          {
+            headers: {
+              tokenSession: localStorage.tokenSession
+            }
+          }
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
+    async removeConsommable ({ commit }, id) {
+      try {
+        const response = await Api.delete(
+          'https://api.party.buisson.us' + '/consommable/' + id,
+          {
+            headers: {
+              tokenSession: localStorage.tokenSession
+            }
+          }
+        ).catch(err => {
+          if (err.response.status === 400) {
+            throw new Error(err.response.data.error)
+          }
+          throw err
+        })
+        return response
+      } catch (error) {
+        return { error: error.message }
+      }
+    },
     async toServeCocktail ({ commit }, form) {
       try {
         const response = await Api.post(
