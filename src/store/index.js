@@ -1,6 +1,9 @@
 import { createStore } from 'vuex';
 import Api from 'axios'
-
+// dotenv
+import 'dotenv/config'
+const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
+console.log(API_BASE_URL)
 export default createStore({
   state: {
     cocktails: [],
@@ -18,7 +21,7 @@ export default createStore({
     async getConsommable ({ commit }) {
       try {
         const response = await Api.get(
-          'https://api.party.buisson.us' + '/consommable'
+          API_BASE_URL + '/consommable'
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -33,7 +36,7 @@ export default createStore({
     async getConfiguration ({ commit }) {
       try {
         const response = await Api.get(
-          'https://api.party.buisson.us' + '/configuration'
+          API_BASE_URL + '/configuration'
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -48,7 +51,7 @@ export default createStore({
     async getCocktail ({ commit }) {
       try {
         const response = await Api.get(
-          'https://api.party.buisson.us' + '/cocktail'
+          API_BASE_URL + '/cocktail'
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -63,7 +66,7 @@ export default createStore({
     async getLog ({ commit }) {
       try {
         const response = await Api.get(
-          'https://api.party.buisson.us' + '/log',
+          API_BASE_URL + '/log',
           {
             headers: {
               tokenSession: localStorage.tokenSession
@@ -83,7 +86,7 @@ export default createStore({
     async editConfiguration ({ commit }, form) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us' + '/configuration/update', form,
+          API_BASE_URL + '/configuration/update', form,
           {
             headers: {
               tokenSession: localStorage.tokenSession
@@ -103,7 +106,7 @@ export default createStore({
     async addCocktail ({ commit }, form) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us' + '/cocktail', form,
+          API_BASE_URL + '/cocktail', form,
           {
             headers: {
               tokenSession: localStorage.tokenSession
@@ -123,7 +126,7 @@ export default createStore({
     async removeCocktail ({ commit }, id) {
       try {
         const response = await Api.delete(
-          'https://api.party.buisson.us' + '/cocktail/' + id,
+          API_BASE_URL + '/cocktail/' + id,
           {
             headers: {
               tokenSession: localStorage.tokenSession
@@ -143,7 +146,7 @@ export default createStore({
     async addConsommable ({ commit }, form) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us' + '/consommable', form,
+          API_BASE_URL + '/consommable', form,
           {
             headers: {
               tokenSession: localStorage.tokenSession
@@ -163,7 +166,7 @@ export default createStore({
     async removeConsommable ({ commit }, id) {
       try {
         const response = await Api.delete(
-          'https://api.party.buisson.us' + '/consommable/' + id,
+          API_BASE_URL + '/consommable/' + id,
           {
             headers: {
               tokenSession: localStorage.tokenSession
@@ -183,7 +186,7 @@ export default createStore({
     async toServeCocktail ({ commit }, form) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us' + '/makeCocktail', form
+          API_BASE_URL + '/makeCocktail', form
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -198,7 +201,7 @@ export default createStore({
     async checkIsAuth ({ commit }, form) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us' + '/checkIsAuth', form
+          API_BASE_URL + '/checkIsAuth', form
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -213,7 +216,7 @@ export default createStore({
     async login ({ commit }, form) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us' + '/login', form
+          API_BASE_URL + '/login', form
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -228,7 +231,7 @@ export default createStore({
     async loginAdmin ({ commit }, form) {
       try {
         const response = await Api.post(
-          'https://api.party.buisson.us' + '/admin/login', form
+          API_BASE_URL + '/admin/login', form
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
