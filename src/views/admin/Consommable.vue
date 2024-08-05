@@ -69,25 +69,30 @@
 </template>
 
 <script>
-import BottomMenu from "../../components/BottomMenu.vue";
-export default {
-  name: "Consommable",
+import { defineComponent } from 'vue';
+
+import BottomMenu from '../../components/BottomMenu.vue';
+export default defineComponent({
+  name: 'Consommable',
+
   components: {
     BottomMenu,
   },
+
   data() {
     return {
       formCreation: {
-        name: "",
+        name: '',
         isAlcool: false,
       },
       consommables: [],
      loaded: false
     };
   },
+
   methods: {
     async getConsommable() {
-      const ret = await this.$store.dispatch("getConsommable");
+      const ret = await this.$store.dispatch('getConsommable');
       this.consommables = [];
       for (const elem of ret.data) {
         this.consommables.push({ item: elem.id, name: elem.name });
@@ -95,18 +100,19 @@ export default {
       this.loaded = true;
     },
     async sendNewConsommable() {
-      await this.$store.dispatch("addConsommable", this.formCreation);
+      await this.$store.dispatch('addConsommable', this.formCreation);
       await this.getConsommable();
     },
     async sendRemoveConsommable(id) {
-      await this.$store.dispatch("removeConsommable", id);
+      await this.$store.dispatch('removeConsommable', id);
       await this.getConsommable();
     },
   },
+
   async created() {
     await this.getConsommable();
   },
-};
+});
 </script>
 
 <style>

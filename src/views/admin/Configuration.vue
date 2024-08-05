@@ -148,45 +148,50 @@
 </template>
 
 <script>
-import BottomMenu from "../../components/BottomMenu.vue";
-export default {
-  name: "Configuration",
+import { defineComponent } from 'vue';
+
+import BottomMenu from '../../components/BottomMenu.vue';
+export default defineComponent({
+  name: 'Configuration',
+
   components: {
     BottomMenu,
   },
+
   data() {
     return {
       form: {
-        pump1: "",
-        pump2: "",
-        pump3: "",
-        pump4: "",
-        pump5: "",
-        pump6: "",
-        party_code: "",
+        pump1: '',
+        pump2: '',
+        pump3: '',
+        pump4: '',
+        pump5: '',
+        pump6: '',
+        party_code: '',
       },
-      consommable: [{ item: "", name: "Aucun" }],
+      consommable: [{ item: '', name: 'Aucun' }],
       configuration: [],
       buttonIsClickable: true
     };
   },
+
   methods: {
     async getConsommable() {
-      const ret = await this.$store.dispatch("getConsommable");
+      const ret = await this.$store.dispatch('getConsommable');
       for (const elem of ret.data) {
         this.consommable.push({ item: elem.id, name: elem.name });
       }
     },
     async getConfiguration() {
-      const ret = await this.$store.dispatch("getConfiguration");
+      const ret = await this.$store.dispatch('getConfiguration');
       this.configuration = ret.data;
-      this.form.pump1 = this.getConf("pump1");
-      this.form.pump2 = this.getConf("pump2");
-      this.form.pump3 = this.getConf("pump3");
-      this.form.pump4 = this.getConf("pump4");
-      this.form.pump5 = this.getConf("pump5");
-      this.form.pump6 = this.getConf("pump6");
-      this.form.party_code = this.getConf("party_code");
+      this.form.pump1 = this.getConf('pump1');
+      this.form.pump2 = this.getConf('pump2');
+      this.form.pump3 = this.getConf('pump3');
+      this.form.pump4 = this.getConf('pump4');
+      this.form.pump5 = this.getConf('pump5');
+      this.form.pump6 = this.getConf('pump6');
+      this.form.party_code = this.getConf('party_code');
     },
     getConf(pump) {
       for (const elem of this.configuration) {
@@ -197,15 +202,16 @@ export default {
     },
     async sendNewConf() {
       this.buttonIsClickable = false
-      const res = await this.$store.dispatch("editConfiguration", this.form);
+      const res = await this.$store.dispatch('editConfiguration', this.form);
       this.buttonIsClickable = true
     },
   },
+
   async created() {
     this.getConfiguration();
     this.getConsommable();
   },
-};
+});
 </script>
 
 <style>

@@ -64,24 +64,27 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 
-export default {
-  name: "Login",
+export default defineComponent({
+  name: 'Login',
+
   data(){
       return {
         form: {
-          name: "",
-          code: "",
-          logDate: ""
+          name: '',
+          code: '',
+          logDate: ''
         },
         buttonIsClickable: true,
         modalShow: false
-      }
+      };
   },
+
   methods: {
     async login(){
       this.buttonIsClickable = false
-      let res = await this.$store.dispatch("login", this.form);
+      let res = await this.$store.dispatch('login', this.form);
       if (res.error){
         this.modalShow = true
       }else{
@@ -92,8 +95,8 @@ export default {
       }
       this.buttonIsClickable = true
     }
-  }
-};
+  },
+});
 </script>
 
 <style>

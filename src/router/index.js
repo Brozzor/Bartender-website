@@ -1,109 +1,109 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router';
 
-import auth from "../middleware/auth";
-import authAdmin from "../middleware/authAdmin";
+// Importer les middlewares
+import auth from '../middleware/auth';
+import authAdmin from '../middleware/authAdmin';
 
-import Home from "../views/Home.vue";
-import Login from "../views/Login.vue";
-import Configuration from "../views/admin/Configuration.vue";
-import Cocktail from "../views/admin/Cocktail.vue";
-import Led from "../views/admin/Led.vue";
-import Consommable from "../views/admin/Consommable.vue";
-import Log from "../views/admin/Log.vue";
-import AdminLogin from "../views/admin/Login.vue";
-import ErrorView from "../views/Layout/error.vue";
+// Importer les vues
+import Home from '../views/Home.vue';
+import Login from '../views/Login.vue';
+import Configuration from '../views/admin/Configuration.vue';
+import Cocktail from '../views/admin/Cocktail.vue';
+import Led from '../views/admin/Led.vue';
+import Consommable from '../views/admin/Consommable.vue';
+import Log from '../views/admin/Log.vue';
+import AdminLogin from '../views/admin/Login.vue';
+import ErrorView from '../views/Layout/error.vue';
 
-Vue.use(VueRouter);
-
+// Définir les routes
 const routes = [
   {
-    path: "/",
-    name: "Home",
+    path: '/',
+    name: 'Home',
     component: Home,
     meta: {
       middleware: auth,
     },
   },
   {
-    path: "/login",
-    name: "Login",
+    path: '/login',
+    name: 'Login',
     component: Login,
   },
   {
-    path: "/admin/",
-    redirect: "/admin/login"
+    path: '/admin/',
+    redirect: '/admin/login'
   },
   {
-    path: "/admin/configuration",
-    name: "Configuration",
+    path: '/admin/configuration',
+    name: 'Configuration',
     component: Configuration,
     meta: {
       middleware: authAdmin,
     },
   },
   {
-    path: "/admin/led",
-    name: "Led",
+    path: '/admin/led',
+    name: 'Led',
     component: Led,
     meta: {
       middleware: authAdmin,
     },
   },
   {
-    path: "/admin/cocktail",
-    name: "Cocktail",
+    path: '/admin/cocktail',
+    name: 'Cocktail',
     component: Cocktail,
     meta: {
       middleware: authAdmin,
     },
   },
   {
-    path: "/admin/consommable",
-    name: "Consommable",
+    path: '/admin/consommable',
+    name: 'Consommable',
     component: Consommable,
     meta: {
       middleware: authAdmin,
     },
   },
   {
-    path: "/admin/log",
-    name: "Log",
+    path: '/admin/log',
+    name: 'Log',
     component: Log,
     meta: {
       middleware: authAdmin,
     },
   },
   {
-    path: "/admin/login",
-    name: "AdminLogin",
+    path: '/admin/login',
+    name: 'AdminLogin',
     component: AdminLogin,
   },
-  { path: "/:pathMatch(.*)*", component: ErrorView },
+  { 
+    path: '/:pathMatch(.*)*', 
+    component: ErrorView 
+  },
 ];
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
+// Créer le routeur
+const router = createRouter({
+  history: createWebHistory(), // Utiliser `import.meta.env.BASE_URL` pour la base URL
   routes,
 });
 
+// Fonction de gestion des middlewares
 function nextFactory(context, middleware, index) {
   const subsequentMiddleware = middleware[index];
-  // If no subsequent Middleware exists,
-  // the default `next()` callback is returned.
   if (!subsequentMiddleware) return context.next;
 
   return (...parameters) => {
-    // Run the default Vue Router `next()` callback first.
     context.next(...parameters);
-    // Then run the subsequent Middleware with a new
-    // `nextMiddleware()` callback.
     const nextMiddleware = nextFactory(context, middleware, index + 1);
     subsequentMiddleware({ ...context, next: nextMiddleware });
   };
 }
 
+// Configurer les guards de navigation
 router.beforeEach((to, from, next) => {
   if (to.meta.middleware) {
     const middleware = Array.isArray(to.meta.middleware) ? to.meta.middleware : [to.meta.middleware];

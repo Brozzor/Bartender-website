@@ -126,39 +126,44 @@
 </template>
 
 <script>
-import BottomMenu from "../../components/BottomMenu.vue";
-export default {
-  name: "Cocktail",
+import { defineComponent } from 'vue';
+
+import BottomMenu from '../../components/BottomMenu.vue';
+export default defineComponent({
+  name: 'Cocktail',
+
   components: {
     BottomMenu,
   },
+
   data() {
     return {
       formCreation: {
-        name: "",
+        name: '',
         consommable: [
           {
-            id: "",
-            time: "",
+            id: '',
+            time: '',
           },
         ],
-        img: "",
+        img: '',
         isInStock: 1,
       },
-      consommable: [{ item: "", name: "Aucun" }],
+      consommable: [{ item: '', name: 'Aucun' }],
       cocktails: [],
       loaded: false
     };
   },
+
   methods: {
     async getCocktail() {
       this.loaded = false;
-      const res = await this.$store.dispatch("getCocktail");
+      const res = await this.$store.dispatch('getCocktail');
       this.cocktails = res.data;
       await this.addConsommableToCocktail()
     },
     async addConsommableToCocktail() {
-      const consommable = await this.$store.dispatch("getConsommable");
+      const consommable = await this.$store.dispatch('getConsommable');
       for (let elem of this.cocktails) {
         elem.ingredients = [];
         for (const elem2 of elem.consommable) {
@@ -173,7 +178,7 @@ export default {
       this.loaded = true;
     },
     async getConsommable() {
-      const ret = await this.$store.dispatch("getConsommable");
+      const ret = await this.$store.dispatch('getConsommable');
       for (const elem of ret.data) {
         this.consommable.push({ item: elem.id, name: elem.name });
       }
@@ -181,8 +186,8 @@ export default {
     addConsommable() {
       if (this.formCreation.consommable.length < 6) {
         this.formCreation.consommable.push({
-          id: "",
-          time: "",
+          id: '',
+          time: '',
         });
       }
     },
@@ -192,19 +197,20 @@ export default {
       }
     },
     async sendNewCocktail() {
-      await this.$store.dispatch("addCocktail", this.formCreation);
+      await this.$store.dispatch('addCocktail', this.formCreation);
       await this.getCocktail();
     },
     async sendRemoveCocktail(id) {
-      await this.$store.dispatch("removeCocktail", id);
+      await this.$store.dispatch('removeCocktail', id);
       await this.getCocktail();
     },
   },
+
   async created() {
     await this.getConsommable();
     await this.getCocktail();
   },
-};
+});
 </script>
 
 <style>

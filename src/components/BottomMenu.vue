@@ -61,7 +61,9 @@
 </template>
 
 <script>
-export default {
-  name: "BottomMenu",
-};
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'BottomMenu',
+});
 </script>

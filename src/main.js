@@ -1,28 +1,28 @@
-import Vue from 'vue'
-import App from './App.vue'
-import './registerServiceWorker'
-import router from './router'
-import store from './store'
-import axios from 'axios'
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import axios from 'axios';
 
+// Import Bootstrap and BootstrapVue 3 CSS files (order is important)
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue-3/dist/bootstrap-vue-3.css';
 
-import { BootstrapVue, IconsPlugin  } from 'bootstrap-vue'
+// Import BootstrapVue 3
+import { BootstrapVue3 } from 'bootstrap-vue-3';
 
-// Import Bootstrap an BootstrapVue CSS files (order is important)
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+// Create Vue application
+const app = createApp(App);
 
-// Make BootstrapVue available throughout your project
-Vue.use(BootstrapVue)
-// Optionally install the BootstrapVue icon components plugin
-Vue.use(IconsPlugin)
+// Make BootstrapVue 3 available throughout your project
+app.use(BootstrapVue3);
 
-Vue.prototype.$http = axios
+// Configure axios
+app.config.globalProperties.$http = axios;
 
-Vue.config.productionTip = false
+// Use the router and store
+app.use(router);
+app.use(store);
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+// Mount the app
+app.mount('#app');

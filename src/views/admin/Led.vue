@@ -25,7 +25,7 @@
             :disabled="!isClickable"
             :style="{ opacity: btnOpacity }"
             @click="startEffect"
-            :value="item"
+            :modelValue="item"
             block
             variant="dark"
             >{{ item }}</b-button
@@ -49,38 +49,43 @@
 </template>
 
 <script>
-import BottomMenu from "../../components/BottomMenu.vue";
-export default {
-  name: "Led",
+import { defineComponent } from 'vue';
+
+import BottomMenu from '../../components/BottomMenu.vue';
+export default defineComponent({
+  name: 'Led',
+
   components: {
     BottomMenu,
   },
+
   data() {
     return {
       brightness: 255,
-      effects: ["rainbow", "sparkle", "strobe", "fire", "loveMode"],
+      effects: ['rainbow', 'sparkle', 'strobe', 'fire', 'loveMode'],
       isClickable: true,
       btnOpacity: 1,
     };
   },
+
   methods: {
     async sendBrightness() {
-      await this.$store.dispatch("ledBrightness", {
+      await this.$store.dispatch('ledBrightness', {
         brightness: this.brightness,
       });
     },
     async changeState(value) {
-      await this.$store.dispatch("changeState", value);
+      await this.$store.dispatch('changeState', value);
     },
     async startEffect(value) {
       this.isClickable = false;
       this.btnOpacity = 0.5;
-      await this.$store.dispatch("changeEffect", { name: value.toElement.value });
+      await this.$store.dispatch('changeEffect', { name: value.toElement.value });
       this.isClickable = true;
       this.btnOpacity = 1;
     },
   },
-};
+});
 </script>
 
 <style>

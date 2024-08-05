@@ -28,29 +28,35 @@
 </template>
 
 <script>
-import BottomMenu from "../../components/BottomMenu.vue";
-export default {
-  name: "Log",
+import { defineComponent } from 'vue';
+
+import BottomMenu from '../../components/BottomMenu.vue';
+export default defineComponent({
+  name: 'Log',
+
   components: {
     BottomMenu,
   },
+
   data() {
     return {
       logs: [],
       loaded: false
     };
   },
+
   methods: {
     async getLog() {
-      const res = await this.$store.dispatch("getLog");
+      const res = await this.$store.dispatch('getLog');
       this.logs = res.data;
       this.loaded = true;
     },
   },
+
   async created() {
     await this.getLog();
   },
-};
+});
 </script>
 
 <style>

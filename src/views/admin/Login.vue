@@ -62,23 +62,26 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 
-export default {
-  name: "AdminLogin",
+export default defineComponent({
+  name: 'AdminLogin',
+
   data(){
       return {
         form: {
-          name: "",
-          password: ""
+          name: '',
+          password: ''
         },
         buttonIsClickable: true,
         modalShow: false
-      }
+      };
   },
+
   methods: {
     async login(){
       this.buttonIsClickable = false
-      let res = await this.$store.dispatch("loginAdmin", this.form);
+      let res = await this.$store.dispatch('loginAdmin', this.form);
       if (res.error != undefined){
         this.modalShow = true
       }else{
@@ -87,8 +90,8 @@ export default {
       }
       this.buttonIsClickable = true
     }
-  }
-};
+  },
+});
 </script>
 
 <style>

@@ -1,12 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex';
 import Api from 'axios'
-Vue.use(Vuex)
 
-export default new Vuex.Store({
+export default createStore({
   state: {
     cocktails: [],
-    ingredient: ["Tequila", "Jus d'orange", "Sirop de grenadine", "Vodka", "Kas citron", "Sirop de fraise"]
+    ingredient: ['Tequila', 'Jus d\'orange', 'Sirop de grenadine', 'Vodka', 'Kas citron', 'Sirop de fraise']
   },
   mutations: {
     addCocktail({ state }, cocktail) {
@@ -306,4 +304,4 @@ export default new Vuex.Store({
   },
   modules: {
   }
-})
+});

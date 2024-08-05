@@ -87,7 +87,7 @@
       v-model="modalShow"
     >
       <b-progress
-        :value="form.cocktailTimeCurrent"
+        :modelValue="form.cocktailTimeCurrent"
         variant="success"
         striped
         :animated="true"
@@ -106,24 +106,27 @@
 </template>
 
 <script>
-import carousel from "vue-owl-carousel";
-export default {
-  name: "Home",
+import { defineComponent } from 'vue';
+
+import carousel from 'vue-owl-carousel';
+export default defineComponent({
+  name: 'Home',
   components: { carousel },
+
   data() {
     return {
       cocktails: [],
       options: [
-        { item: "1", name: "Normal" },
-        { item: "2", name: "Chargé" },
-        { item: "3", name: "Majestueux 👑" },
+        { item: '1', name: 'Normal' },
+        { item: '2', name: 'Chargé' },
+        { item: '3', name: 'Majestueux 👑' },
       ],
-      selected: "1",
+      selected: '1',
       loaded: false,
       form: {
-        id: "",
-        amount: "1",
-        name: "",
+        id: '',
+        amount: '1',
+        name: '',
         cocktailTime: 10500,
         cocktailTimeCurrent: 0,
         isInStock: true
@@ -132,9 +135,10 @@ export default {
       modalShowError: false,
     };
   },
+
   methods: {
     async getCocktail() {
-      const res = await this.$store.dispatch("getCocktail");
+      const res = await this.$store.dispatch('getCocktail');
       this.cocktails = res.data;
       await this.getConsommable();
       this.form.id = this.cocktails[0].id;
@@ -142,7 +146,7 @@ export default {
       this.loaded = true;
     },
     async getConsommable() {
-      const consommable = await this.$store.dispatch("getConsommable");
+      const consommable = await this.$store.dispatch('getConsommable');
       for (let elem of this.cocktails) {
         elem.ingredients = [];
         for (const elem2 of elem.consommable) {
@@ -157,7 +161,7 @@ export default {
     },
     async toServeCocktail() {
       
-      const res = await this.$store.dispatch("toServeCocktail", this.form);
+      const res = await this.$store.dispatch('toServeCocktail', this.form);
       console.log(res.error)
       if (!res.error){
         this.modalShow = true;
@@ -185,11 +189,12 @@ export default {
       return new Promise((resolve) => setTimeout(resolve, ms));
     },
   },
+
   created() {
     this.getCocktail();
     this.form.name = localStorage.name;
   },
-};
+});
 </script>
 
 <style>
