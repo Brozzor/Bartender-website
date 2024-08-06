@@ -56,7 +56,7 @@
       title="Code Incorrect"
       v-model="modalShow"
     >
-     <font color="#dc3545">Le nom ou le mot de passe est incorrect</font> 
+    <div style="color: #dc3545">Le nom ou le mot de passe est incorrect</div> 
     </b-modal>
   </div>
 </template>
@@ -85,7 +85,7 @@ export default defineComponent({
       if (res.error != undefined){
         this.modalShow = true
       }else{
-        localStorage.tokenSession = res.data.tokenSession
+        localStorage.token = res.data.token
         return this.$router.push({ name: 'Configuration' });
       }
       this.buttonIsClickable = true

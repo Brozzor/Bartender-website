@@ -114,7 +114,7 @@ router.beforeEach((to, from, next) => {
       router,
       to,
     };
-    const nextMiddleware = nextFactory(context, middleware, 1);
+    const nextMiddleware = nextFactory(context, middleware, 0);
 
     return middleware[0]({ ...context, next: nextMiddleware });
   }

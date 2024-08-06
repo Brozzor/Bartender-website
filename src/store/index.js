@@ -1,7 +1,6 @@
 import { createStore } from 'vuex';
 import Api from 'axios'
-// dotenv
-import 'dotenv/config'
+
 const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
 console.log(API_BASE_URL)
 export default createStore({
@@ -69,7 +68,7 @@ export default createStore({
           API_BASE_URL + '/log',
           {
             headers: {
-              tokenSession: localStorage.tokenSession
+              token: localStorage.token
             }
           }
         ).catch(err => {
@@ -89,7 +88,7 @@ export default createStore({
           API_BASE_URL + '/configuration/update', form,
           {
             headers: {
-              tokenSession: localStorage.tokenSession
+              token: localStorage.token
             }
           }
         ).catch(err => {
@@ -109,7 +108,7 @@ export default createStore({
           API_BASE_URL + '/cocktail', form,
           {
             headers: {
-              tokenSession: localStorage.tokenSession
+              token: localStorage.token
             }
           }
         ).catch(err => {
@@ -129,7 +128,7 @@ export default createStore({
           API_BASE_URL + '/cocktail/' + id,
           {
             headers: {
-              tokenSession: localStorage.tokenSession
+              token: localStorage.token
             }
           }
         ).catch(err => {
@@ -149,7 +148,7 @@ export default createStore({
           API_BASE_URL + '/consommable', form,
           {
             headers: {
-              tokenSession: localStorage.tokenSession
+              token: localStorage.token
             }
           }
         ).catch(err => {
@@ -169,7 +168,7 @@ export default createStore({
           API_BASE_URL + '/consommable/' + id,
           {
             headers: {
-              tokenSession: localStorage.tokenSession
+              token: localStorage.token
             }
           }
         ).catch(err => {
@@ -216,7 +215,7 @@ export default createStore({
     async login ({ commit }, form) {
       try {
         const response = await Api.post(
-          API_BASE_URL + '/login', form
+          API_BASE_URL + '/auth/login', form
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -231,7 +230,7 @@ export default createStore({
     async loginAdmin ({ commit }, form) {
       try {
         const response = await Api.post(
-          API_BASE_URL + '/admin/login', form
+          API_BASE_URL + '/auth/admin/login', form
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -249,7 +248,7 @@ export default createStore({
           'https://api.party.buisson.us/led/' + value, {},
           {
             headers: {
-              tokenSession: localStorage.tokenSession
+              token: localStorage.token
             }
           }
         ).catch(err => {
@@ -269,7 +268,7 @@ export default createStore({
           'https://api.party.buisson.us/led/changeBrightness', data,
           {
             headers: {
-              tokenSession: localStorage.tokenSession
+              token: localStorage.token
             }
           }
         ).catch(err => {
@@ -289,7 +288,7 @@ export default createStore({
           'https://api.party.buisson.us/led/changeEffect', data,
           {
             headers: {
-              tokenSession: localStorage.tokenSession
+              token: localStorage.token
             }
           }
         ).catch(err => {

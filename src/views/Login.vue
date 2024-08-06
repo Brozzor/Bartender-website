@@ -36,7 +36,7 @@
                 placeholder="Code de la soirée"
                 max="9999"
                 min="1"
-                v-model="form.code"
+                v-model="form.password"
               />
               <i class="clear-input">
               </i>
@@ -58,7 +58,7 @@
       title="Code Incorrect"
       v-model="modalShow"
     >
-     <font color="#dc3545">Le code que vous avez saisi est mauvais</font> 
+     <div style="color: #dc3545">Le code que vous avez saisi est mauvais</div> 
     </b-modal>
   </div>
 </template>
@@ -73,7 +73,7 @@ export default defineComponent({
       return {
         form: {
           name: '',
-          code: '',
+          password: '',
           logDate: ''
         },
         buttonIsClickable: true,
@@ -88,9 +88,9 @@ export default defineComponent({
       if (res.error){
         this.modalShow = true
       }else{
-        localStorage.code = this.form.code
+        localStorage.password = this.form.password
         localStorage.name = this.form.name
-        localStorage.logDate = Math.round(+new Date() / 1000);
+        localStorage.loginDate = new Date().getTime()
         return this.$router.push({ name: 'Home' });
       }
       this.buttonIsClickable = true
@@ -99,9 +99,13 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss">
 .opacity-50 {
   opacity: .5;
+}
+
+.form-control-dark::placeholder {
+  color: #fff;
 }
 
 </style>
