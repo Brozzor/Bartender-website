@@ -17,10 +17,10 @@ export default createStore({
     }
   },
   actions: {
-    async getConsommable ({ commit }) {
+    async getConsumable ({ commit }) {
       try {
         const response = await Api.get(
-          API_BASE_URL + '/consommable'
+          API_BASE_URL + '/consumable'
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -142,10 +142,10 @@ export default createStore({
         return { error: error.message }
       }
     },
-    async addConsommable ({ commit }, form) {
+    async addConsumable ({ commit }, form) {
       try {
         const response = await Api.post(
-          API_BASE_URL + '/consommable', form,
+          API_BASE_URL + '/consumable', form,
           {
             headers: {
               token: localStorage.token
@@ -162,10 +162,10 @@ export default createStore({
         return { error: error.message }
       }
     },
-    async removeConsommable ({ commit }, id) {
+    async removeConsumable ({ commit }, id) {
       try {
         const response = await Api.delete(
-          API_BASE_URL + '/consommable/' + id,
+          API_BASE_URL + '/consumable/' + id,
           {
             headers: {
               token: localStorage.token
@@ -182,10 +182,10 @@ export default createStore({
         return { error: error.message }
       }
     },
-    async toServeCocktail ({ commit }, form) {
+    async orderCocktail ({ commit }, form) {
       try {
         const response = await Api.post(
-          API_BASE_URL + '/makeCocktail', form
+          API_BASE_URL + '/cocktail/order', form
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)

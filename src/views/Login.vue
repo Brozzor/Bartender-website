@@ -1,6 +1,6 @@
 <template>
   <div id="appCapsule" class="pt-0">
-    <div class="login-form mt-1">
+    <div class="login-form">
       <div class="section">
         <img
           src="img/cocktail.svg"
@@ -10,7 +10,7 @@
       </div>
       <div class="section mt-1 text-white" >
         <h1 style="font-size: 34px;font-weight: 700;">Bartender</h1>
-        <h4 style="font-size: 15px;font-weight: 500;">Rentrez le code de la soirée et commandez-vous à boire</h4>
+        <h4 style="font-size: 15px;font-weight: 500;">Rentrez le code de la soirée et commandez-vous un cocktail</h4>
       </div>
       <div class="section mt-1 mb-5">
         <form @submit.prevent="login">
@@ -44,7 +44,7 @@
           </div>
 
           <div class="form-button-group" style="background: #0f1c2d;">
-            <button type="submit" class="btn btn-primary btn-block btn-lg" :class="{'opacity-50': !buttonIsClickable}" :disabled="!buttonIsClickable">
+            <button type="submit" class="btn btn-primary btn-lg" :class="{'opacity-50': !buttonIsClickable}" style="width: 100%" :disabled="!buttonIsClickable">
               C'est partit !
             </button>
           </div>
@@ -74,7 +74,7 @@ export default defineComponent({
         form: {
           name: '',
           password: '',
-          logDate: ''
+          loginDate: ''
         },
         buttonIsClickable: true,
         modalShow: false
@@ -105,7 +105,7 @@ export default defineComponent({
 }
 
 .form-control-dark::placeholder {
-  color: #fff;
+  color: #fff!important;
 }
 
 </style>

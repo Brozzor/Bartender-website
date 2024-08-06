@@ -9,7 +9,7 @@
       class="carousel-slider owl-theme"
       @translated="translated"
     >
-      <div class="item p-2" v-for="item in cocktails" :key="item.name">
+      <div v-show="cocktails" class="item p-2" v-for="item in cocktails" :key="item.name">
         <img
           :src="item.img"
           class="imaged w-100 mb-4"
@@ -37,6 +37,9 @@
         </div>
       </div>
     </carousel>
+    <div v-else>
+      Aucun cocktails disponible
+    </div>
 
     <div class="carousel-button-footer">
 
@@ -58,7 +61,8 @@
         </div>
         <div class="col-8 px-3">
           <button
-            @click="toServeCocktail"
+            @click="orderCocktail"
+            style="width: 100%;"
             class="btn btn-primary btn-lg btn-block"
           >
             Servir
@@ -68,7 +72,7 @@
 
         <div v-else class="px-3">
           <button
-            @click="toServeCocktail"
+            @click="orderCocktail"
             class="btn btn-danger btn-lg btn-block"
             style="opacity: .5;"
             disabled
@@ -140,17 +144,18 @@ export default defineComponent({
     async getCocktail() {
       const res = await this.$store.dispatch('getCocktail');
       this.cocktails = res.data;
-      await this.getConsommable();
+      await this.getConsumable();
+      this.loaded = true;
+      if (!this.cocktails.length) return
       this.form.id = this.cocktails[0].id;
       this.form.isInStock = this.cocktails[0].isInStock;
-      this.loaded = true;
     },
-    async getConsommable() {
-      const consommable = await this.$store.dispatch('getConsommable');
+    async getConsumable() {
+      const consumable = await this.$store.dispatch('getConsumable');
       for (let elem of this.cocktails) {
         elem.ingredients = [];
-        for (const elem2 of elem.consommable) {
-          for (const elem3 of consommable.data) {
+        for (const elem2 of elem.consumable) {
+          for (const elem3 of consumable.data) {
             if (elem2.id == elem3.id) {
               elem.ingredients.push(elem3.name);
               break;
@@ -159,9 +164,8 @@ export default defineComponent({
         }
       }
     },
-    async toServeCocktail() {
-      
-      const res = await this.$store.dispatch('toServeCocktail', this.form);
+    async orderCocktail() {
+      const res = await this.$store.dispatch('orderCocktail', this.form);
       console.log(res.error)
       if (!res.error){
         this.modalShow = true;

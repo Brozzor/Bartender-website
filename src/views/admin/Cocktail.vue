@@ -36,13 +36,13 @@
         <b-form-group>
           <div
             class="row mt-1"
-            v-for="(elem, index) in formCreation.consommable"
+            v-for="(elem, index) in formCreation.consumable"
             :key="index"
           >
             <div class="col">
               <b-form-select
-                v-model="formCreation.consommable[index].id"
-                :options="consommable"
+                v-model="formCreation.consumable[index].id"
+                :options="consumable"
                 value-field="item"
                 text-field="name"
                 disabled-field="notEnabled"
@@ -55,7 +55,7 @@
             </div>
             <div class="col">
               <b-form-input
-                v-model="formCreation.consommable[index].time"
+                v-model="formCreation.consumable[index].time"
                 class="form-control-dark"
                 type="number"
                 placeholder="Temps(ms)"
@@ -69,7 +69,7 @@
             <div class="col">
               <button
                 type="button"
-                @click="addConsommable"
+                @click="addConsumable"
                 class="btn btn-success btn-sm"
               >
                 Ajouter
@@ -78,7 +78,7 @@
             <div class="col">
               <button
                 type="button"
-                @click="removeConsommable"
+                @click="removeConsumable"
                 class="btn btn-danger btn-sm"
               >
                 Supprimer
@@ -112,7 +112,7 @@
 
         <div class="d-flex justify-content-between">
           <ul class="text-left">
-            <li class="text-white" v-for="consommable in cocktail.ingredients" :key="consommable.id">{{consommable}}</li>
+            <li class="text-white" v-for="consumable in cocktail.ingredients" :key="consumable.id">{{consumable}}</li>
           </ul>
           <b-button @click="sendRemoveCocktail(cocktail.id)" variant="outline-danger">Supprimer</b-button>
         </div>
@@ -140,7 +140,7 @@ export default defineComponent({
     return {
       formCreation: {
         name: '',
-        consommable: [
+        consumable: [
           {
             id: '',
             time: '',
@@ -149,7 +149,7 @@ export default defineComponent({
         img: '',
         isInStock: 1,
       },
-      consommable: [{ item: '', name: 'Aucun' }],
+      consumable: [{ item: '', name: 'Aucun' }],
       cocktails: [],
       loaded: false
     };
@@ -160,14 +160,14 @@ export default defineComponent({
       this.loaded = false;
       const res = await this.$store.dispatch('getCocktail');
       this.cocktails = res.data;
-      await this.addConsommableToCocktail()
+      await this.addConsumableToCocktail()
     },
-    async addConsommableToCocktail() {
-      const consommable = await this.$store.dispatch('getConsommable');
+    async addConsumableToCocktail() {
+      const consumable = await this.$store.dispatch('getConsumable');
       for (let elem of this.cocktails) {
         elem.ingredients = [];
-        for (const elem2 of elem.consommable) {
-          for (const elem3 of consommable.data) {
+        for (const elem2 of elem.consumable) {
+          for (const elem3 of consumable.data) {
             if (elem2.id == elem3.id) {
               elem.ingredients.push(elem3.name);
               break;
@@ -177,23 +177,23 @@ export default defineComponent({
       }
       this.loaded = true;
     },
-    async getConsommable() {
-      const ret = await this.$store.dispatch('getConsommable');
+    async getConsumable() {
+      const ret = await this.$store.dispatch('getConsumable');
       for (const elem of ret.data) {
-        this.consommable.push({ item: elem.id, name: elem.name });
+        this.consumable.push({ item: elem.id, name: elem.name });
       }
     },
-    addConsommable() {
-      if (this.formCreation.consommable.length < 6) {
-        this.formCreation.consommable.push({
+    addConsumable() {
+      if (this.formCreation.consumable.length < 6) {
+        this.formCreation.consumable.push({
           id: '',
           time: '',
         });
       }
     },
-    removeConsommable() {
-      if (this.formCreation.consommable.length > 1) {
-        this.formCreation.consommable.pop();
+    removeConsumable() {
+      if (this.formCreation.consumable.length > 1) {
+        this.formCreation.consumable.pop();
       }
     },
     async sendNewCocktail() {
@@ -207,7 +207,7 @@ export default defineComponent({
   },
 
   async created() {
-    await this.getConsommable();
+    await this.getConsumable();
     await this.getCocktail();
   },
 });

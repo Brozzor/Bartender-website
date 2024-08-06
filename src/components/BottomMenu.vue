@@ -25,7 +25,7 @@
       </div>
     </router-link>
 
-    <router-link to="consommable" class="item">
+    <router-link to="consumable" class="item">
       <div class="col">
         <img
           class="md hydrated iconbottom"

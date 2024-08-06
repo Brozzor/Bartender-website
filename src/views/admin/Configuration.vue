@@ -4,7 +4,7 @@
       <div class="section mt-5 text-white">
         <h1 style="font-size: 34px; font-weight: 700">Configuration</h1>
         <h4 style="font-size: 15px; font-weight: 500">
-          Définissez chaque pompes sur chaques consommable
+          Définissez chaque pompes sur chaques consumable
         </h4>
       </div>
       <div
@@ -25,7 +25,7 @@
             <b-form-select
               id="pump1"
               v-model="form.pump1"
-              :options="consommable"
+              :options="consumable"
               :class="{ dosage: true }"
               value-field="item"
               text-field="name"
@@ -42,7 +42,7 @@
             <b-form-select
               id="pump2"
               v-model="form.pump2"
-              :options="consommable"
+              :options="consumable"
               :class="{ dosage: true }"
               value-field="item"
               text-field="name"
@@ -59,7 +59,7 @@
             <b-form-select
               id="pump3"
               v-model="form.pump3"
-              :options="consommable"
+              :options="consumable"
               :class="{ dosage: true }"
               value-field="item"
               text-field="name"
@@ -76,7 +76,7 @@
             <b-form-select
               id="pump4"
               v-model="form.pump4"
-              :options="consommable"
+              :options="consumable"
               :class="{ dosage: true }"
               value-field="item"
               text-field="name"
@@ -93,7 +93,7 @@
             <b-form-select
               id="pump5"
               v-model="form.pump5"
-              :options="consommable"
+              :options="consumable"
               :class="{ dosage: true }"
               value-field="item"
               text-field="name"
@@ -110,7 +110,7 @@
             <b-form-select
               id="pump6"
               v-model="form.pump6"
-              :options="consommable"
+              :options="consumable"
               :class="{ dosage: true }"
               value-field="item"
               text-field="name"
@@ -169,17 +169,17 @@ export default defineComponent({
         pump6: '',
         party_code: '',
       },
-      consommable: [{ item: '', name: 'Aucun' }],
+      consumable: [{ item: '', name: 'Aucun' }],
       configuration: [],
       buttonIsClickable: true
     };
   },
 
   methods: {
-    async getConsommable() {
-      const ret = await this.$store.dispatch('getConsommable');
+    async getConsumable() {
+      const ret = await this.$store.dispatch('getConsumable');
       for (const elem of ret.data) {
-        this.consommable.push({ item: elem.id, name: elem.name });
+        this.consumable.push({ item: elem.id, name: elem.name });
       }
     },
     async getConfiguration() {
@@ -209,7 +209,7 @@ export default defineComponent({
 
   async created() {
     this.getConfiguration();
-    this.getConsommable();
+    this.getConsumable();
   },
 });
 </script>

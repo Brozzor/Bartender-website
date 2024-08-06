@@ -10,7 +10,7 @@ import Login from '../views/Login.vue';
 import Configuration from '../views/admin/Configuration.vue';
 import Cocktail from '../views/admin/Cocktail.vue';
 import Led from '../views/admin/Led.vue';
-import Consommable from '../views/admin/Consommable.vue';
+import Consumable from '../views/admin/Consumable.vue';
 import Log from '../views/admin/Log.vue';
 import AdminLogin from '../views/admin/Login.vue';
 import ErrorView from '../views/Layout/error.vue';
@@ -59,9 +59,9 @@ const routes = [
     },
   },
   {
-    path: '/admin/consommable',
-    name: 'Consommable',
-    component: Consommable,
+    path: '/admin/consumable',
+    name: 'Consumable',
+    component: Consumable,
     meta: {
       middleware: authAdmin,
     },
@@ -114,7 +114,7 @@ router.beforeEach((to, from, next) => {
       router,
       to,
     };
-    const nextMiddleware = nextFactory(context, middleware, 0);
+    const nextMiddleware = nextFactory(context, middleware, 1);
 
     return middleware[0]({ ...context, next: nextMiddleware });
   }

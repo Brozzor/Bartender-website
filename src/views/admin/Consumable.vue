@@ -2,7 +2,7 @@
   <div id="appCapsule" class="pt-0">
     <div class="login-form mt-1">
       <div class="section mt-5 text-white">
-        <h1 style="font-size: 34px; font-weight: 700">Consommable</h1>
+        <h1 style="font-size: 34px; font-weight: 700">Consumable</h1>
       </div>
       <div
         class="section mt-1 mb-5 pt-3 pb-3"
@@ -19,7 +19,7 @@
           <input
             type="text"
             class="form-control form-control-dark mt-2"
-            placeholder="Nom du consommable"
+            placeholder="Nom du consumable"
             v-model="formCreation.name"
           />
         </b-form-group>
@@ -35,10 +35,10 @@
         <div class="mt-4">
           <button
             type="button"
-            @click="sendNewConsommable"
+            @click="sendNewConsumable"
             class="btn btn-success btn-lg btn-block"
           >
-            Crée le consommable
+            Crée le consumable
           </button>
         </div>
       </div>
@@ -47,16 +47,16 @@
         <b-list-group-item
           href="#"
           class="mt-1"
-          v-for="consommable in consommables"
-          :key="consommable.id"
+          v-for="consumable in consumables"
+          :key="consumable.id"
           style="background-color: #0f1c2f"
         >
         
         <div class="d-flex justify-content-between">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ consommable.name }}</h5>
+                <h5 class="mb-1">{{ consumable.name }}</h5>
             </div>
-          <b-button @click="sendRemoveConsommable(consommable.item)" variant="outline-danger">Supprimer</b-button>
+          <b-button @click="sendRemoveConsumable(consumable.item)" variant="outline-danger">Supprimer</b-button>
         </div>
           
         </b-list-group-item>
@@ -73,7 +73,7 @@ import { defineComponent } from 'vue';
 
 import BottomMenu from '../../components/BottomMenu.vue';
 export default defineComponent({
-  name: 'Consommable',
+  name: 'Consumable',
 
   components: {
     BottomMenu,
@@ -85,32 +85,32 @@ export default defineComponent({
         name: '',
         isAlcool: false,
       },
-      consommables: [],
+      consumables: [],
      loaded: false
     };
   },
 
   methods: {
-    async getConsommable() {
-      const ret = await this.$store.dispatch('getConsommable');
-      this.consommables = [];
+    async getConsumable() {
+      const ret = await this.$store.dispatch('getConsumable');
+      this.consumables = [];
       for (const elem of ret.data) {
-        this.consommables.push({ item: elem.id, name: elem.name });
+        this.consumables.push({ item: elem.id, name: elem.name });
       }
       this.loaded = true;
     },
-    async sendNewConsommable() {
-      await this.$store.dispatch('addConsommable', this.formCreation);
-      await this.getConsommable();
+    async sendNewConsumable() {
+      await this.$store.dispatch('addConsumable', this.formCreation);
+      await this.getConsumable();
     },
-    async sendRemoveConsommable(id) {
-      await this.$store.dispatch('removeConsommable', id);
-      await this.getConsommable();
+    async sendRemoveConsumable(id) {
+      await this.$store.dispatch('removeConsumable', id);
+      await this.getConsumable();
     },
   },
 
   async created() {
-    await this.getConsommable();
+    await this.getConsumable();
   },
 });
 </script>
