@@ -2,7 +2,7 @@
   <div id="appCapsule" class="pt-0">
     <div class="login-form mt-1">
       <div class="section mt-5 text-white">
-        <h1 style="font-size: 34px; font-weight: 700">Consumable</h1>
+        <h1 style="font-size: 34px; font-weight: 700">ingrédients</h1>
       </div>
       <div
         class="section mt-1 mb-5 pt-3 pb-3"
@@ -19,14 +19,14 @@
           <input
             type="text"
             class="form-control form-control-dark mt-2"
-            placeholder="Nom du consumable"
+            placeholder="Nom de l'ingrédient"
             v-model="formCreation.name"
           />
         </b-form-group>
         <b-form-checkbox
             id="checkbox-1"
             v-model="formCreation.isAlcool"
-            class="text-white beta"
+            class="text-white"
             name="checkbox-1"
             >
             Est-ce un produit à base d'alcool ?
@@ -38,7 +38,7 @@
             @click="sendNewConsumable"
             class="btn btn-success btn-lg btn-block"
           >
-            Crée le consumable
+            Ajouter l'ingrédient
           </button>
         </div>
       </div>
@@ -46,7 +46,6 @@
       <b-list-group v-if="loaded" class="mb-5">
         <b-list-group-item
           href="#"
-          class="mt-1"
           v-for="consumable in consumables"
           :key="consumable.id"
           style="background-color: #0f1c2f"
@@ -54,7 +53,7 @@
         
         <div class="d-flex justify-content-between">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ consumable.name }}</h5>
+                <h5 class="mb-1 text-white">{{ consumable.name }}</h5>
             </div>
           <b-button @click="sendRemoveConsumable(consumable.item)" variant="outline-danger">Supprimer</b-button>
         </div>

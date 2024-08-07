@@ -1,6 +1,6 @@
 <template>
   <div id="appCapsule" class="pt-0">
-    <div class="login-form mt-1">
+    <div class="login-form">
       <div class="section">
         <img
           src="/img/cocktail.svg"
@@ -21,7 +21,7 @@
                 class="form-control form-control-dark mt-3"
                 placeholder="Votre prénom"
                 maxlength="20"
-                v-model="form.name"
+                v-model="form.email"
               />
               <i class="clear-input">
               </i>
@@ -42,7 +42,7 @@
           </div>
 
           <div class="form-button-group" style="background: #0f1c2d;">
-            <button type="submit" class="btn btn-primary btn-block btn-lg" :class="{'opacity-50': !buttonIsClickable}" :disabled="!buttonIsClickable">
+            <button type="submit" style="width: 100%;" class="btn btn-primary btn-lg" :class="{'opacity-50': !buttonIsClickable}" :disabled="!buttonIsClickable">
               Connection
             </button>
           </div>
@@ -70,7 +70,7 @@ export default defineComponent({
   data(){
       return {
         form: {
-          name: '',
+          email: '',
           password: ''
         },
         buttonIsClickable: true,

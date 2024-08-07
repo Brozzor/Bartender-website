@@ -4,7 +4,7 @@
       <div class="section mt-5 text-white">
         <h1 style="font-size: 34px; font-weight: 700">Configuration</h1>
         <h4 style="font-size: 15px; font-weight: 500">
-          Définissez chaque pompes sur chaques consumable
+          Configurer votre bar avec les ingrédients de votre choix
         </h4>
       </div>
       <div
@@ -18,98 +18,14 @@
 
           <b-form-group
             id="fieldset-1"
-            label="Pompe 1 :"
-            label-for="pump1"
+            :label="'Pompe ' + (i+1)"
+            :label-for="'pump' + (i+1)"
             class="form-conf"
+            v-for="(pump, i) in bar.pumps"
           >
             <b-form-select
               id="pump1"
-              v-model="form.pump1"
-              :options="consumable"
-              :class="{ dosage: true }"
-              value-field="item"
-              text-field="name"
-              disabled-field="notEnabled"
-            ></b-form-select>
-          </b-form-group>
-
-          <b-form-group
-            id="fieldset-2"
-            label="Pompe 2 :"
-            label-for="pump2"
-            class="form-conf"
-          >
-            <b-form-select
-              id="pump2"
-              v-model="form.pump2"
-              :options="consumable"
-              :class="{ dosage: true }"
-              value-field="item"
-              text-field="name"
-              disabled-field="notEnabled"
-            ></b-form-select>
-          </b-form-group>
-
-          <b-form-group
-            id="fieldset-3"
-            label="Pompe 3 :"
-            label-for="pump3"
-            class="form-conf"
-          >
-            <b-form-select
-              id="pump3"
-              v-model="form.pump3"
-              :options="consumable"
-              :class="{ dosage: true }"
-              value-field="item"
-              text-field="name"
-              disabled-field="notEnabled"
-            ></b-form-select>
-          </b-form-group>
-
-          <b-form-group
-            id="fieldset-4"
-            label="Pompe 4 :"
-            label-for="pump4"
-            class="form-conf"
-          >
-            <b-form-select
-              id="pump4"
-              v-model="form.pump4"
-              :options="consumable"
-              :class="{ dosage: true }"
-              value-field="item"
-              text-field="name"
-              disabled-field="notEnabled"
-            ></b-form-select>
-          </b-form-group>
-
-          <b-form-group
-            id="fieldset-5"
-            label="Pompe 5 :"
-            label-for="pump5"
-            class="form-conf"
-          >
-            <b-form-select
-              id="pump5"
-              v-model="form.pump5"
-              :options="consumable"
-              :class="{ dosage: true }"
-              value-field="item"
-              text-field="name"
-              disabled-field="notEnabled"
-            ></b-form-select>
-          </b-form-group>
-
-          <b-form-group
-            id="fieldset-6"
-            label="Pompe 6 :"
-            label-for="pump6"
-            class="form-conf"
-          >
-            <b-form-select
-              id="pump6"
-              v-model="form.pump6"
+              v-model="bar.pumps[i]"
               :options="consumable"
               :class="{ dosage: true }"
               value-field="item"
@@ -120,7 +36,7 @@
 
           <b-form-group
             id="fieldset-7"
-            label="Code secret :"
+            label="Code secret"
             label-for="code"
             class="form-conf"
           >
@@ -128,10 +44,10 @@
               id="code"
               type="number"
               class="form-control form-control-dark mt-2"
-              placeholder="Code de la soirée"
-              max="9999"
+              placeholder="Code de l'événement'"
+              max="999999"
               min="1"
-              v-model="form.party_code"
+              v-model="bar.eventPassword"
             />
           </b-form-group>
 
@@ -160,14 +76,9 @@ export default defineComponent({
 
   data() {
     return {
-      form: {
-        pump1: '',
-        pump2: '',
-        pump3: '',
-        pump4: '',
-        pump5: '',
-        pump6: '',
-        party_code: '',
+      bar: {
+        pumps: [],
+        eventPassword: '',
       },
       consumable: [{ item: '', name: 'Aucun' }],
       configuration: [],
@@ -177,38 +88,29 @@ export default defineComponent({
 
   methods: {
     async getConsumable() {
-      const ret = await this.$store.dispatch('getConsumable');
-      for (const elem of ret.data) {
+      const res = await this.$store.dispatch('getConsumable');
+      if (!res.data) return;
+      for (const elem of res.data) {
         this.consumable.push({ item: elem.id, name: elem.name });
       }
     },
-    async getConfiguration() {
-      const ret = await this.$store.dispatch('getConfiguration');
-      this.configuration = ret.data;
-      this.form.pump1 = this.getConf('pump1');
-      this.form.pump2 = this.getConf('pump2');
-      this.form.pump3 = this.getConf('pump3');
-      this.form.pump4 = this.getConf('pump4');
-      this.form.pump5 = this.getConf('pump5');
-      this.form.pump6 = this.getConf('pump6');
-      this.form.party_code = this.getConf('party_code');
-    },
-    getConf(pump) {
-      for (const elem of this.configuration) {
-        if (elem.name == pump) {
-          return elem.value;
-        }
+    async getBar() {
+      const res = await this.$store.dispatch('getBar');
+     console.log(res.data)
+      this.bar = res.data;
+      if (!this.bar.pumps.length) {
+        this.bar.pumps = new Array(this.bar.nbPumps).fill('');
       }
     },
     async sendNewConf() {
       this.buttonIsClickable = false
-      const res = await this.$store.dispatch('editConfiguration', this.form);
+      await this.$store.dispatch('editBar', this.bar);
       this.buttonIsClickable = true
     },
   },
 
   async created() {
-    this.getConfiguration();
+    this.getBar();
     this.getConsumable();
   },
 });

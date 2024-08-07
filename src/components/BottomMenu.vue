@@ -36,17 +36,6 @@
       </div>
     </router-link>
 
-    <router-link to="led" class="item">
-      <div class="col">
-        <img
-          class="md hydrated iconbottom"
-          height="26"
-          src="/img/icons/led-strip.svg"
-          alt=""
-        />
-      </div>
-    </router-link>
-
     <router-link to="log" class="item">
       <div class="col">
         <img

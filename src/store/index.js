@@ -3,6 +3,11 @@ import Api from 'axios'
 
 const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
 console.log(API_BASE_URL)
+const HEADERS = {
+  headers: {
+    Authorization: 'Bearer ' + localStorage.token
+  }
+}
 export default createStore({
   state: {
     cocktails: [],
@@ -20,7 +25,7 @@ export default createStore({
     async getConsumable ({ commit }) {
       try {
         const response = await Api.get(
-          API_BASE_URL + '/consumable'
+          API_BASE_URL + '/consumable', HEADERS
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -32,10 +37,10 @@ export default createStore({
         return { error: error.message }
       }
     },
-    async getConfiguration ({ commit }) {
+    async getBar ({ commit }) {
       try {
         const response = await Api.get(
-          API_BASE_URL + '/configuration'
+          API_BASE_URL + '/bar', HEADERS
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -66,11 +71,7 @@ export default createStore({
       try {
         const response = await Api.get(
           API_BASE_URL + '/log',
-          {
-            headers: {
-              token: localStorage.token
-            }
-          }
+          HEADERS
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -82,15 +83,11 @@ export default createStore({
         return { error: error.message }
       }
     },
-    async editConfiguration ({ commit }, form) {
+    async editBar ({ commit }, form) {
       try {
-        const response = await Api.post(
-          API_BASE_URL + '/configuration/update', form,
-          {
-            headers: {
-              token: localStorage.token
-            }
-          }
+        const response = await Api.put(
+          API_BASE_URL + '/bar', form,
+          HEADERS
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -106,11 +103,7 @@ export default createStore({
       try {
         const response = await Api.post(
           API_BASE_URL + '/cocktail', form,
-          {
-            headers: {
-              token: localStorage.token
-            }
-          }
+          HEADERS
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -126,11 +119,7 @@ export default createStore({
       try {
         const response = await Api.delete(
           API_BASE_URL + '/cocktail/' + id,
-          {
-            headers: {
-              token: localStorage.token
-            }
-          }
+          HEADERS
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -146,11 +135,7 @@ export default createStore({
       try {
         const response = await Api.post(
           API_BASE_URL + '/consumable', form,
-          {
-            headers: {
-              token: localStorage.token
-            }
-          }
+          HEADERS
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -166,11 +151,7 @@ export default createStore({
       try {
         const response = await Api.delete(
           API_BASE_URL + '/consumable/' + id,
-          {
-            headers: {
-              token: localStorage.token
-            }
-          }
+          HEADERS
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -241,67 +222,7 @@ export default createStore({
       } catch (error) {
         return { error: error.message }
       }
-    },
-    async changeState ({ commit }, value) {
-      try {
-        const response = await Api.post(
-          'https://api.party.buisson.us/led/' + value, {},
-          {
-            headers: {
-              token: localStorage.token
-            }
-          }
-        ).catch(err => {
-          if (err.response.status === 400) {
-            throw new Error(err.response.data.error)
-          }
-          throw err
-        })
-        return response
-      } catch (error) {
-        return { error: error.message }
-      }
-    },
-    async ledBrightness ({ commit }, data) {
-      try {
-        const response = await Api.post(
-          'https://api.party.buisson.us/led/changeBrightness', data,
-          {
-            headers: {
-              token: localStorage.token
-            }
-          }
-        ).catch(err => {
-          if (err.response.status === 400) {
-            throw new Error(err.response.data.error)
-          }
-          throw err
-        })
-        return response
-      } catch (error) {
-        return { error: error.message }
-      }
-    },
-    async changeEffect ({ commit }, data) {
-      try {
-        const response = await Api.post(
-          'https://api.party.buisson.us/led/changeEffect', data,
-          {
-            headers: {
-              token: localStorage.token
-            }
-          }
-        ).catch(err => {
-          if (err.response.status === 400) {
-            throw new Error(err.response.data.error)
-          }
-          throw err
-        })
-        return response
-      } catch (error) {
-        return { error: error.message }
-      }
-    },
+    }
 
   },
   modules: {

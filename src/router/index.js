@@ -9,7 +9,6 @@ import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Configuration from '../views/admin/Configuration.vue';
 import Cocktail from '../views/admin/Cocktail.vue';
-import Led from '../views/admin/Led.vue';
 import Consumable from '../views/admin/Consumable.vue';
 import Log from '../views/admin/Log.vue';
 import AdminLogin from '../views/admin/Login.vue';
@@ -38,14 +37,6 @@ const routes = [
     path: '/admin/configuration',
     name: 'Configuration',
     component: Configuration,
-    meta: {
-      middleware: authAdmin,
-    },
-  },
-  {
-    path: '/admin/led',
-    name: 'Led',
-    component: Led,
     meta: {
       middleware: authAdmin,
     },
