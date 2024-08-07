@@ -22,7 +22,7 @@ export default createStore({
     }
   },
   actions: {
-    async getConsumable ({ commit }) {
+    async getConsumables ({ commit }) {
       try {
         const response = await Api.get(
           API_BASE_URL + '/consumable', HEADERS

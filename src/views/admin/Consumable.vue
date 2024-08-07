@@ -20,12 +20,12 @@
             type="text"
             class="form-control form-control-dark mt-2"
             placeholder="Nom de l'ingrédient"
-            v-model="formCreation.name"
+            v-model="form.name"
           />
         </b-form-group>
         <b-form-checkbox
             id="checkbox-1"
-            v-model="formCreation.isAlcool"
+            v-model="form.isAlcool"
             class="text-white"
             name="checkbox-1"
             >
@@ -35,7 +35,7 @@
         <div class="mt-4">
           <button
             type="button"
-            @click="sendNewConsumable"
+            @click="createConsumable"
             class="btn btn-success btn-lg btn-block"
           >
             Ajouter l'ingrédient
@@ -80,7 +80,7 @@ export default defineComponent({
 
   data() {
     return {
-      formCreation: {
+      form: {
         name: '',
         isAlcool: false,
       },
@@ -90,26 +90,26 @@ export default defineComponent({
   },
 
   methods: {
-    async getConsumable() {
-      const ret = await this.$store.dispatch('getConsumable');
+    async getConsumables() {
+      const res = await this.$store.dispatch('getConsumables');
       this.consumables = [];
-      for (const elem of ret.data) {
+      for (const elem of res.data) {
         this.consumables.push({ item: elem.id, name: elem.name });
       }
       this.loaded = true;
     },
-    async sendNewConsumable() {
-      await this.$store.dispatch('addConsumable', this.formCreation);
-      await this.getConsumable();
+    async createConsumable() {
+      await this.$store.dispatch('addConsumable', this.form);
+
+      await this.getConsumables();
     },
     async sendRemoveConsumable(id) {
       await this.$store.dispatch('removeConsumable', id);
-      await this.getConsumable();
+      await this.getConsumables();
     },
   },
-
   async created() {
-    await this.getConsumable();
+    await this.getConsumables();
   },
 });
 </script>

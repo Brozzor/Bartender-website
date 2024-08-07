@@ -1,21 +1,16 @@
 <template>
   <div class="mt-2">
-    <carousel
+    <Carousel
       v-if="loaded"
-      :responsive="{
-        0: { items: 1, nav: false },
-      }"
-      :loop="true"
-      class="carousel-slider owl-theme"
-      @translated="translated"
+      :itemsToShow="1" :wrapAround="false" :transition="500"
     >
-      <div v-show="cocktails" class="item p-2" v-for="item in cocktails" :key="item.name">
+    <Slide v-show="cocktails" class="item p-2 d-flex flex-column" v-for="cocktail in cocktails" :key="cocktail.name">
         <img
-          :src="item.img"
+          :src="cocktail.img"
           class="imaged w-100 mb-4"
           style="border-radius: 0.5rem"
         />
-        <h2>{{ item.name }}</h2>
+        <h2 class="text-white">{{ cocktail.name }}</h2>
         <p
           style="
             background: #0c1624 !important;
@@ -29,14 +24,18 @@
         <div class="mt-3">
           <p
             style="margin-bottom: 0.1rem; color: #374a65"
-            v-for="ingredient in item.ingredients"
-            :key="ingredient"
+            v-for="consumable in cocktail.consumables"
+            :key="consumable"
           >
-            {{ ingredient }}
+            {{ consumable.name }}
           </p>
         </div>
-      </div>
-    </carousel>
+      </Slide>
+      <template #addons>
+        <Navigation />
+        <Pagination />
+      </template>
+    </Carousel>
     <div v-else>
       Aucun cocktails disponible
     </div>
@@ -111,11 +110,13 @@
 
 <script>
 import { defineComponent } from 'vue';
-
-import carousel from 'vue-owl-carousel';
+import { Carousel, Pagination, Slide } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
 export default defineComponent({
   name: 'Home',
-  components: { carousel },
+  components: { Carousel,
+    Slide,
+    Pagination },
 
   data() {
     return {
@@ -144,20 +145,19 @@ export default defineComponent({
     async getCocktail() {
       const res = await this.$store.dispatch('getCocktail');
       this.cocktails = res.data;
-      await this.getConsumable();
+      await this.getConsumables();
       this.loaded = true;
       if (!this.cocktails.length) return
       this.form.id = this.cocktails[0].id;
       this.form.isInStock = this.cocktails[0].isInStock;
     },
-    async getConsumable() {
-      const consumable = await this.$store.dispatch('getConsumable');
+    async getConsumables() {
+      const consumables = await this.$store.dispatch('getConsumables');
       for (let elem of this.cocktails) {
-        elem.ingredients = [];
-        for (const elem2 of elem.consumable) {
-          for (const elem3 of consumable.data) {
+        for (const elem2 of elem.consumables) {
+          for (const elem3 of consumables.data) {
             if (elem2.id == elem3.id) {
-              elem.ingredients.push(elem3.name);
+              elem2.name = elem3.name;
               break;
             }
           }

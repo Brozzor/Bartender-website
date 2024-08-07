@@ -19,8 +19,8 @@
           <input
             type="text"
             class="form-control form-control-dark mt-2"
-            placeholder="Nom du coktail"
-            v-model="formCreation.name"
+            placeholder="Nom du cocktail"
+            v-model="form.name"
           />
         </b-form-group>
 
@@ -29,20 +29,20 @@
             type="text"
             class="form-control form-control-dark mt-2"
             placeholder="Image"
-            v-model="formCreation.img"
+            v-model="form.img"
           />
         </b-form-group>
 
         <b-form-group>
           <div
             class="row mt-1"
-            v-for="(elem, index) in formCreation.consumable"
+            v-for="(elem, index) in form.consumables"
             :key="index"
           >
             <div class="col">
               <b-form-select
-                v-model="formCreation.consumable[index].id"
-                :options="consumable"
+                v-model="form.consumables[index].id"
+                :options="consumables"
                 value-field="item"
                 text-field="name"
                 disabled-field="notEnabled"
@@ -55,10 +55,12 @@
             </div>
             <div class="col">
               <b-form-input
-                v-model="formCreation.consumable[index].time"
+                v-model="form.consumables[index].percent"
                 class="form-control-dark"
                 type="number"
-                placeholder="Temps(ms)"
+                placeholder="Pourcentage"
+                min="1"
+                max="100"
               ></b-form-input>
             </div>
           </div>
@@ -101,18 +103,17 @@
       <b-list-group v-if="loaded" class="mb-5">
         <b-list-group-item
           href="#"
-          class="mt-1"
           v-for="cocktail in cocktails"
           :key="cocktail.id"
           style="background-color: #0f1c2f"
         >
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ cocktail.name }}</h5>
+            <h5 class="mb-1 text-white">{{ cocktail.name }}</h5>
           </div>
 
         <div class="d-flex justify-content-between">
           <ul class="text-left">
-            <li class="text-white" v-for="consumable in cocktail.ingredients" :key="consumable.id">{{consumable}}</li>
+            <li style="text-align: left;" class="text-white" v-for="consumable in cocktail.consumables" :key="consumable.id">{{consumable.name + ' - ' + consumable.percent + '%'}}</li>
           </ul>
           <b-button @click="sendRemoveCocktail(cocktail.id)" variant="outline-danger">Supprimer</b-button>
         </div>
@@ -138,18 +139,18 @@ export default defineComponent({
 
   data() {
     return {
-      formCreation: {
+      form: {
         name: '',
-        consumable: [
+        consumables: [
           {
             id: '',
-            time: '',
+            percent: 0,
           },
         ],
         img: '',
         isInStock: 1,
       },
-      consumable: [{ item: '', name: 'Aucun' }],
+      consumables: [{ item: '', name: 'Aucun' }],
       cocktails: [],
       loaded: false
     };
@@ -163,13 +164,13 @@ export default defineComponent({
       await this.addConsumableToCocktail()
     },
     async addConsumableToCocktail() {
-      const consumable = await this.$store.dispatch('getConsumable');
+      const consumables = await this.$store.dispatch('getConsumables');
+      console.log(consumables);
       for (let elem of this.cocktails) {
-        elem.ingredients = [];
-        for (const elem2 of elem.consumable) {
-          for (const elem3 of consumable.data) {
+        for (const elem2 of elem.consumables) {
+          for (const elem3 of consumables.data) {
             if (elem2.id == elem3.id) {
-              elem.ingredients.push(elem3.name);
+              elem2.name = elem3.name;
               break;
             }
           }
@@ -177,27 +178,27 @@ export default defineComponent({
       }
       this.loaded = true;
     },
-    async getConsumable() {
-      const ret = await this.$store.dispatch('getConsumable');
-      for (const elem of ret.data) {
-        this.consumable.push({ item: elem.id, name: elem.name });
+    async getConsumables() {
+      const res = await this.$store.dispatch('getConsumables');
+      for (const elem of res.data) {
+        this.consumables.push({ item: elem.id, name: elem.name });
       }
     },
     addConsumable() {
-      if (this.formCreation.consumable.length < 6) {
-        this.formCreation.consumable.push({
+      if (this.form.consumables.length < 6) {
+        this.form.consumables.push({
           id: '',
-          time: '',
+          percent: 0,
         });
       }
     },
     removeConsumable() {
-      if (this.formCreation.consumable.length > 1) {
-        this.formCreation.consumable.pop();
+      if (this.form.consumables.length > 1) {
+        this.form.consumables.pop();
       }
     },
     async sendNewCocktail() {
-      await this.$store.dispatch('addCocktail', this.formCreation);
+      await this.$store.dispatch('addCocktail', this.form);
       await this.getCocktail();
     },
     async sendRemoveCocktail(id) {
@@ -207,7 +208,7 @@ export default defineComponent({
   },
 
   async created() {
-    await this.getConsumable();
+    await this.getConsumables();
     await this.getCocktail();
   },
 });
