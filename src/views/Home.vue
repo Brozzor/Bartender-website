@@ -2,7 +2,7 @@
   <div class="mt-2">
     <Carousel
       v-if="loaded"
-      :itemsToShow="1" :wrapAround="false" :transition="500"
+      :itemsToShow="1" :wrapAround="true" :transition="400" v-model="selected"
     >
     <Slide v-show="cocktails" class="item p-2 d-flex flex-column" v-for="cocktail in cocktails" :key="cocktail.name">
         <img
@@ -32,7 +32,6 @@
         </div>
       </Slide>
       <template #addons>
-        <Navigation />
         <Pagination />
       </template>
     </Carousel>
@@ -42,10 +41,10 @@
 
     <div class="carousel-button-footer">
 
-      <div v-if="form.isInStock" class="row">
+      <div v-if="cocktails.length && cocktails[selected].isInStock" class="row">
         <div class="col-4 pr-0 pl-3">
           <b-form-select
-            v-model="form.amount"
+            v-model="alcoolPower"
             :options="options"
             :class="{
               'btn-lg': true,
@@ -90,10 +89,9 @@
       v-model="modalShow"
     >
       <b-progress
-        :modelValue="form.cocktailTimeCurrent"
+        :value="cocktailTimeCurrent"
         variant="success"
-        striped
-        :animated="true"
+        animated
       ></b-progress>
     </b-modal>
 
@@ -126,16 +124,11 @@ export default defineComponent({
         { item: '2', name: 'Chargé' },
         { item: '3', name: 'Majestueux 👑' },
       ],
-      selected: '1',
+      selected: 0,
       loaded: false,
-      form: {
-        id: '',
-        amount: '1',
-        name: '',
-        cocktailTime: 10500,
-        cocktailTimeCurrent: 0,
-        isInStock: true
-      },
+      alcoolPower: '1',
+      cocktailTimeCurrent: 0,
+      cocktailTime: 10500,
       modalShow: false,
       modalShowError: false,
     };
@@ -148,8 +141,6 @@ export default defineComponent({
       await this.getConsumables();
       this.loaded = true;
       if (!this.cocktails.length) return
-      this.form.id = this.cocktails[0].id;
-      this.form.isInStock = this.cocktails[0].isInStock;
     },
     async getConsumables() {
       const consumables = await this.$store.dispatch('getConsumables');
@@ -165,7 +156,10 @@ export default defineComponent({
       }
     },
     async orderCocktail() {
-      const res = await this.$store.dispatch('orderCocktail', this.form);
+      const res = await this.$store.dispatch('orderCocktail', {
+        id: this.cocktails[this.selected].id,
+        alcoolPower: this.alcoolPower,
+      });
       console.log(res.error)
       if (!res.error){
         this.modalShow = true;
@@ -174,17 +168,13 @@ export default defineComponent({
         this.modalShowError = true;
       }
     },
-    translated(data) {
-      this.form.id = this.cocktails[data.page.index].id;
-      this.form.isInStock = this.cocktails[data.page.index].isInStock;
-    },
     async progress() {
-      await this.sleep(this.form.cocktailTime / 100);
-      this.form.cocktailTimeCurrent += 1;
-      if (this.form.cocktailTimeCurrent <= this.form.cocktailTime / 100) {
+      await this.sleep(this.cocktailTime / 100);
+      this.cocktailTimeCurrent += 1;
+      if (this.cocktailTimeCurrent <= this.cocktailTime / 100) {
         return this.progress();
       } else {
-        this.form.cocktailTimeCurrent = 0;
+        this.cocktailTimeCurrent = 0;
         this.modalShow = false;
       }
 
@@ -196,7 +186,6 @@ export default defineComponent({
 
   created() {
     this.getCocktail();
-    this.form.name = localStorage.name;
   },
 });
 </script>

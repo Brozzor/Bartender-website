@@ -87,8 +87,8 @@ export default defineComponent({
   },
 
   methods: {
-    async getConsumable() {
-      const res = await this.$store.dispatch('getConsumable');
+    async getConsumables() {
+      const res = await this.$store.dispatch('getConsumables');
       if (!res.data) return;
       for (const elem of res.data) {
         this.consumable.push({ item: elem.id, name: elem.name });
@@ -111,7 +111,7 @@ export default defineComponent({
 
   async created() {
     this.getBar();
-    this.getConsumable();
+    this.getConsumables();
   },
 });
 </script>
