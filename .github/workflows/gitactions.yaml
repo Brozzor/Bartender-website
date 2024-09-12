@@ -1,0 +1,49 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build application
+      run: npm run build
+    
+    - name: Copy PM2 config to output folder
+      run: cp bartender-front.yml .output/
+
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@7.0.1
+      with:
+        switches: -avzr --delete
+        path: .output/
+        remote_path: /home/romain/projects/bartender/bartender-front
+        remote_host: ${{ secrets.VPS_HOST }}
+        remote_port: 22
+        remote_user: ${{ secrets.VPS_USERNAME }}
+        remote_key: ${{ secrets.SSH_PRIVATE_KEY  }}
+    
+    - name: SSH into server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /home/romain/projects/bartender/bartender-front
+          pm2 stop bartender-front
+          pm2 start bartender-front.yml
