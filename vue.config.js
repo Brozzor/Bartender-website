@@ -1,6 +1,9 @@
 module.exports = {
     pwa: {
       workboxPluginMode: 'GenerateSW',
+      workboxOptions: {
+        swDest: 'service-worker.js'
+      },
       iconPaths: {
         favicon32: 'favicon-32x32.png',
         favicon16: 'favicon-16x16.png',
