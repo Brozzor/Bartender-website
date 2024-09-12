@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
 import Api from 'axios'
 
-const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
+const API_BASE_URL = "https://party.buisson.us/api/v1";
 console.log(API_BASE_URL)
 const HEADERS = {
   headers: {
