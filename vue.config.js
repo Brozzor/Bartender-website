@@ -2,7 +2,7 @@ module.exports = {
     pwa: {
       workboxPluginMode: 'GenerateSW',
       workboxOptions: {
-        swDest: 'service-worker.js'
+        exclude: [/service-worker\.js$/],  // Exclure les fichiers déjà nommés service-worker.js
       },
       iconPaths: {
         favicon32: 'favicon-32x32.png',
