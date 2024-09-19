@@ -17,9 +17,9 @@
           <div class="form-group boxed">
             <div class="input-wrapper">
               <input
-                type="text"
+                type="mail"
                 class="form-control form-control-dark mt-3"
-                placeholder="Votre prénom"
+                placeholder="Votre Email"
                 maxlength="20"
                 v-model="form.email"
               />
@@ -86,7 +86,7 @@ export default defineComponent({
         this.modalShow = true
       }else{
         localStorage.token = res.data.token
-        return this.$router.push({ name: 'Configuration' });
+        this.$router.push({ name: 'Configuration' });
       }
       this.buttonIsClickable = true
     }

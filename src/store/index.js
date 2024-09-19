@@ -2,12 +2,6 @@ import { createStore } from 'vuex';
 import Api from 'axios'
 
 const API_BASE_URL = "https://party.buisson.us/api/v1";
-console.log(API_BASE_URL)
-const HEADERS = {
-  headers: {
-    Authorization: 'Bearer ' + localStorage.token
-  }
-}
 export default createStore({
   state: {
     cocktails: [],
@@ -25,7 +19,11 @@ export default createStore({
     async getConsumables ({ commit }) {
       try {
         const response = await Api.get(
-          API_BASE_URL + '/consumable', HEADERS
+          API_BASE_URL + '/consumable', {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.token
+          }
+        }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -38,9 +36,18 @@ export default createStore({
       }
     },
     async getBar ({ commit }) {
+      console.log({
+        headers: {
+          Authorization: 'Bearer ' + localStorage.token
+        }
+      })
       try {
         const response = await Api.get(
-          API_BASE_URL + '/bar', HEADERS
+          API_BASE_URL + '/bar', {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.token
+          }
+        }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -71,7 +78,11 @@ export default createStore({
       try {
         const response = await Api.get(
           API_BASE_URL + '/log',
-          HEADERS
+          {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.token
+          }
+        }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -87,7 +98,11 @@ export default createStore({
       try {
         const response = await Api.put(
           API_BASE_URL + '/bar', form,
-          HEADERS
+          {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.token
+          }
+        }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -103,7 +118,11 @@ export default createStore({
       try {
         const response = await Api.post(
           API_BASE_URL + '/cocktail', form,
-          HEADERS
+          {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.token
+          }
+        }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -119,7 +138,11 @@ export default createStore({
       try {
         const response = await Api.delete(
           API_BASE_URL + '/cocktail/' + id,
-          HEADERS
+          {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.token
+          }
+        }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -135,7 +158,11 @@ export default createStore({
       try {
         const response = await Api.post(
           API_BASE_URL + '/consumable', form,
-          HEADERS
+          {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.token
+          }
+        }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)
@@ -151,7 +178,11 @@ export default createStore({
       try {
         const response = await Api.delete(
           API_BASE_URL + '/consumable/' + id,
-          HEADERS
+          {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.token
+          }
+        }
         ).catch(err => {
           if (err.response.status === 400) {
             throw new Error(err.response.data.error)

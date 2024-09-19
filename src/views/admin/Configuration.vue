@@ -21,6 +21,7 @@
             :label="'Pompe ' + (i+1)"
             :label-for="'pump' + (i+1)"
             class="form-conf"
+            v-if="bar.pumps.length"
             v-for="(pump, i) in bar.pumps"
           >
             <b-form-select
