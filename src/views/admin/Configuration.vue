@@ -97,7 +97,6 @@ export default defineComponent({
     },
     async getBar() {
       const res = await this.$store.dispatch('getBar');
-     console.log(res.data)
       this.bar = res.data;
       if (!this.bar.pumps.length) {
         this.bar.pumps = new Array(this.bar.nbPumps).fill('');

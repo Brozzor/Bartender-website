@@ -159,6 +159,7 @@ export default defineComponent({
       const res = await this.$store.dispatch('orderCocktail', {
         id: this.cocktails[this.selected].id,
         alcoolPower: this.alcoolPower,
+        name: localStorage.getItem('name'),
       });
       console.log(res.error)
       if (!res.error){
@@ -203,4 +204,7 @@ export default defineComponent({
 .modal-title {
   color: black;
 }
+.carousel__viewport {
+  max-height: 700px;
+} 
 </style>

@@ -12,10 +12,10 @@
           class="mt-1 pb-0"
           v-for="log in logs"
           :key="log.id"
-          style="background-color: #0f1c2f;"
+          style="background-color: #0f1c2f; color:white;"
         >
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ log.genre }}</h5>
+            <h5 class="mb-1">{{ log.type.toUpperCase() }}</h5>
           </div>
             <p class="text-left">{{ log.value }}</p>
         </b-list-group-item>
