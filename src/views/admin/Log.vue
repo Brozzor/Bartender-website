@@ -14,10 +14,10 @@
           :key="log.id"
           style="background-color: #0f1c2f; color:white;"
         >
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ log.type.toUpperCase() }}</h5>
+          <div class="d-flex w-100 justify-content-start">
+            <h5 class="mb-2">{{ log.type.toUpperCase() + ' - ' + new Date(log.createdAt).toLocaleString()}}</h5>
           </div>
-            <p class="text-left">{{ log.value }}</p>
+            <p style="text-align: left;">{{ log.value }}</p>
         </b-list-group-item>
 
       </b-list-group>
