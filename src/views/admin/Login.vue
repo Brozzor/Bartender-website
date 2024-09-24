@@ -28,7 +28,7 @@
             </div>
           </div>
 
-          <div class="form-group boxed">
+          <div class="form-group boxed mb-3">
             <div class="input-wrapper">
               <input
                 type="password"
@@ -41,9 +41,11 @@
             </div>
           </div>
 
+          <router-link style="color: #626d7d" to="/">Accéder au panel consommateur</router-link>
+
           <div class="form-button-group" style="background: #0f1c2d;">
             <button type="submit" style="width: 100%;" class="btn btn-primary btn-lg" :class="{'opacity-50': !buttonIsClickable}" :disabled="!buttonIsClickable">
-              Connection
+              Se connecter
             </button>
           </div>
         </form>

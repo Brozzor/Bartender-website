@@ -28,12 +28,12 @@
             </div>
           </div>
 
-          <div class="form-group boxed">
+          <div class="form-group boxed mb-3">
             <div class="input-wrapper">
               <input
                 type="number"
                 class="form-control form-control-dark mt-2"
-                placeholder="Code de la soirée"
+                placeholder="Code de l'événement"
                 max="9999"
                 min="1"
                 v-model="form.password"
@@ -42,6 +42,8 @@
               </i>
             </div>
           </div>
+
+          <router-link style="color: #626d7d" to="/admin">Accéder au panel d'administration</router-link>
 
           <div class="form-button-group" style="background: #0f1c2d;">
             <button type="submit" class="btn btn-primary btn-lg" :class="{'opacity-50': !buttonIsClickable}" style="width: 100%" :disabled="!buttonIsClickable">
