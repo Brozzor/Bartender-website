@@ -72,7 +72,7 @@
           <button
             @click="orderCocktail"
             class="btn btn-danger btn-lg btn-block"
-            style="opacity: .5;"
+            style="opacity: .5;width: 100%;"
             disabled
           >
             Hors stock
