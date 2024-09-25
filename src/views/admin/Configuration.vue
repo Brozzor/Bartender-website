@@ -36,8 +36,25 @@
           </b-form-group>
 
           <b-form-group
+            id="fieldset-1"
+            label="Contenance des verres"
+            label-for="pump"
+            class="form-conf"
+          >
+            <b-form-select
+              id="pump1"
+              v-model="bar.glassType"
+              :options="glassTypes"
+              :class="{ dosage: true }"
+              value-field="value"
+              text-field="name"
+              disabled-field="notEnabled"
+            ></b-form-select>
+          </b-form-group>
+
+          <b-form-group
             id="fieldset-7"
-            label="Code secret"
+            label="Code d'accès à l'événement"
             label-for="code"
             class="form-conf"
           >
@@ -45,7 +62,7 @@
               id="code"
               type="number"
               class="form-control form-control-dark mt-2"
-              placeholder="Code de l'événement'"
+              placeholder="Code de l'événement"
               max="999999"
               min="1"
               v-model="bar.eventPassword"
@@ -82,6 +99,18 @@ export default defineComponent({
         eventPassword: '',
       },
       consumable: [{ item: '', name: 'Aucun' }],
+      glassTypes: [{
+        value: 'SMALL',
+        name: 'Petit (100ml)',
+      },
+      {
+        value: 'MEDIUM',
+        name: 'Moyen (180ml)',
+      },
+      {
+        value: 'BIG',
+        name: 'Grand (380ml)',
+      }],
       configuration: [],
       buttonIsClickable: true
     };
